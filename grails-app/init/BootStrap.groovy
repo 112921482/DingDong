@@ -5,10 +5,10 @@ import dingdong.UserRole
 class BootStrap {
 
     def init = {
-        def adminRole = new Role('ROLE_ADMIN').save()
-        def userRole = new Role('ROLE_USER').save()
-        def testUser = new User('me', 'password').save()
-        UserRole.create testUser, adminRole
+        Role adminRole = new Role('ROLE_ADMIN').save()
+        Role userRole = new Role('ROLE_USER').save()
+        User testUser = new User('112921482', 'a19521439').save()
+        UserRole.create(testUser, adminRole)
         UserRole.withSession {
             it.flush()
             it.clear()
