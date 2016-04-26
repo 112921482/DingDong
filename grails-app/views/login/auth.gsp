@@ -45,7 +45,7 @@
 
         <div id="navbar" class="navbar-collapse collapse">
             <g:if test='${flash.message}'>
-                <small class="navbar-brand" style="font-size: 12px!important; color: red;padding: 15px 0!important;">${flash.message}</small>
+                <small class="navbar-brand" style="font-size: 12px!important; color: red;">${flash.message}</small>
             </g:if>
             <form action="${postUrl ?: '/login/authenticate'}" method="POST" id="loginForm" autocomplete="off"
                   class="navbar-form navbar-right">
