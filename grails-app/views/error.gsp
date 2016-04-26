@@ -24,7 +24,7 @@
 
     <div class="error-desc">
         服务器遇到一些意想不到的错误。我们向您道歉，但是，不会减价。<br/>
-        <a href="index.html" class="btn btn-primary m-t">返回主页</a>
+        <a href="javascript:history.back(-1);" class="btn btn-primary m-t">返回上一页</a>
     </div>
 </div>
 
