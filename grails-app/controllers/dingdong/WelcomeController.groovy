@@ -1,7 +1,7 @@
 package dingdong
 
 import grails.plugin.springsecurity.annotation.Secured
-import orderManagement.TakeOutOrder
+import dingdong.orderManagement.TakeOutOrder
 
 class WelcomeController {
 
