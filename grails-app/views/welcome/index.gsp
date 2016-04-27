@@ -127,9 +127,9 @@
 
 
                 <li>
-                    <a href="login.html">
+                    <g:link controller="logout" method="POST">
                         <i class="fa fa-sign-out"></i> Log out
-                    </a>
+                    </g:link>
                 </li>
                 <li>
                     <a class="right-sidebar-toggle">
