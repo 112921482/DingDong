@@ -34,7 +34,7 @@
                         <li>
                             <div class="dropdown-messages-box">
                                 <a href="profile.html" class="pull-left">
-                                    <asset:image src="img/a7.jpg"/>
+                                    <asset:image class="img-circle" src="img/a7.jpg"/>
                                 </a>
 
                                 <div>
@@ -48,7 +48,7 @@
                         <li>
                             <div class="dropdown-messages-box">
                                 <a href="profile.html" class="pull-left">
-                                    <asset:image src="img/a4.jpg"/>
+                                    <asset:image class="img-circle" src="img/a4.jpg"/>
                                 </a>
 
                                 <div>
@@ -62,7 +62,7 @@
                         <li>
                             <div class="dropdown-messages-box">
                                 <a href="profile.html" class="pull-left">
-                                    <asset:image src="img/profile.jpg"/>
+                                    <asset:image class="img-circle" src="img/profile.jpg"/>
                                 </a>
 
                                 <div>
@@ -531,7 +531,7 @@
                     <div class="sidebar-message">
                         <a href="dashboard_5.html#">
                             <div class="pull-left text-center">
-                                <asset:image src="img/a1.jpg"/>
+                                <asset:image class="img-circle message-avatar" src="img/a1.jpg"/>
 
                                 <div class="m-t-xs">
                                     <i class="fa fa-star text-warning"></i>
@@ -551,7 +551,7 @@
                     <div class="sidebar-message">
                         <a href="dashboard_5.html#">
                             <div class="pull-left text-center">
-                                <asset:image src="img/a2.jpg"/>
+                                <asset:image class="img-circle message-avatar" src="img/a2.jpg"/>
                             </div>
 
                             <div class="media-body">
@@ -565,7 +565,7 @@
                     <div class="sidebar-message">
                         <a href="dashboard_5.html#">
                             <div class="pull-left text-center">
-                                <asset:image src="img/a3.jpg"/>
+                                <asset:image class="img-circle message-avatar" src="img/a3.jpg"/>
 
                                 <div class="m-t-xs">
                                     <i class="fa fa-star text-warning"></i>
@@ -585,7 +585,7 @@
                     <div class="sidebar-message">
                         <a href="dashboard_5.html#">
                             <div class="pull-left text-center">
-                                <asset:image src="img/a4.jpg"/>
+                                <asset:image class="img-circle message-avatar" src="img/a4.jpg"/>
                             </div>
 
                             <div class="media-body">
@@ -599,7 +599,7 @@
                     <div class="sidebar-message">
                         <a href="dashboard_5.html#">
                             <div class="pull-left text-center">
-                                <asset:image src="img/a8.jpg"/>
+                                <asset:image class="img-circle message-avatar" src="img/a8.jpg"/>
                             </div>
 
                             <div class="media-body">
@@ -614,7 +614,7 @@
                     <div class="sidebar-message">
                         <a href="dashboard_5.html#">
                             <div class="pull-left text-center">
-                                <asset:image src="img/a7.jpg"/>
+                                <asset:image class="img-circle message-avatar" src="img/a7.jpg"/>
                             </div>
 
                             <div class="media-body">
@@ -628,7 +628,7 @@
                     <div class="sidebar-message">
                         <a href="dashboard_5.html#">
                             <div class="pull-left text-center">
-                                <asset:image src="img/a3.jpg"/>
+                                <asset:image class="img-circle message-avatar" src="img/a3.jpg"/>
 
                                 <div class="m-t-xs">
                                     <i class="fa fa-star text-warning"></i>
@@ -648,7 +648,7 @@
                     <div class="sidebar-message">
                         <a href="dashboard_5.html#">
                             <div class="pull-left text-center">
-                                <asset:image src="img/a4.jpg"/>
+                                <asset:image class="img-circle message-avatar" src="img/a4.jpg"/>
                             </div>
 
                             <div class="media-body">
