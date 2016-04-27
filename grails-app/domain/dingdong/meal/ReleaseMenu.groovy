@@ -2,11 +2,9 @@ package dingdong.meal
 
 class ReleaseMenu {
 
-    String name
-    BigDecimal price
-    String picUrl
-    Date releaseDate
-    Integer status
+    MealMenu mealMenu
+    Integer amount //数量
+    Date releaseDate //发布时间
 
     static constraints = {
     }
