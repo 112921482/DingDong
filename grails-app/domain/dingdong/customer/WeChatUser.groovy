@@ -2,7 +2,11 @@ package dingdong.customer
 
 class WeChatUser {
 
-    String name //昵称
+    String name
+
+    static mapping = {
+        name comment: "昵称"
+    }
 
     static hasMany = [deliveryAddresses: DeliveryAddress]
 

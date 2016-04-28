@@ -4,13 +4,21 @@ import dingdong.meal.ReleaseMenu
 
 class TakeOutOrderDetail {
 
-    ReleaseMenu releaseMenu //订的菜
-    Integer amount //数量
-    Integer status //(0-未烹饪，1-已烹饪)
-    Date createTime //创建时间
-    Date updateTime //更新时间
+    ReleaseMenu releaseMenu
+    Integer amount
+    Integer status
+    Date createTime
+    Date updateTime
 
     static belongsTo = [takeOutOrder: TakeOutOrder]
+
+    static mapping = {
+        releaseMenu comment: "release_menu表主键关联，订的什么菜"
+        amount comment: "数量"
+        status comment: "烹饪状态(0-未烹饪，1-已烹饪)"
+        createTime comment: "创建时间"
+        updateTime comment: "更新时间"
+    }
 
     static constraints = {
     }
