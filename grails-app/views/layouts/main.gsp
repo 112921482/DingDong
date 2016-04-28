@@ -13,6 +13,12 @@
     <asset:stylesheet src="css/style.css"/>
 
     <g:layoutHead/>
+
+    <style>
+    body {
+        font-family: "open sans", "Helvetica Neue", 微软雅黑, Arial, sans-serif;
+    }
+    </style>
 </head>
 
 <body>

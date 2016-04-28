@@ -8,10 +8,15 @@
 
     <asset:stylesheet src="css/bootstrap.min.css"/>
     <asset:stylesheet src="font-awesome/css/font-awesome.css"/>
-    
+
     <asset:stylesheet src="css/animate.css"/>
     <asset:stylesheet src="css/style.css"/>
 
+    <style>
+    body {
+        font-family: "open sans", "Helvetica Neue", 微软雅黑, Arial, sans-serif;
+    }
+    </style>
 </head>
 
 <body class="gray-bg">
