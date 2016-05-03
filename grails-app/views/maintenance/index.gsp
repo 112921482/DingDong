@@ -6,6 +6,12 @@
     <title>首页</title>
     <asset:stylesheet src="css/plugins/dropzone/basic.css"/>
     <asset:stylesheet src="css/plugins/dropzone/dropzone.css"/>
+    <style>
+    #my-awesome-dropzone{
+        min-height: 270px;
+        width: 170px;
+    }
+</style>
 </head>
 
 <body>
@@ -42,19 +48,35 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">新建菜单</h3>
+                            <div class="col-sm-12">
+                                <h3 class="m-t-none m-b">新建菜单</h3>
 
                                 <p>新建菜单的名字、价格以及图片</p>
 
                                 <form role="form">
                                     <div class="form-group">
                                         <label>菜名</label>
-                                        <input name="menuName" type="text" placeholder="请输入菜名" class="form-control">
+                                        <input id="menuName" name="menuName" type="text" placeholder="请输入菜名"
+                                               class="form-control">
                                     </div>
 
                                     <div class="form-group">
                                         <label>价格</label>
-                                        <input name="menuPrice" type="number" placeholder="请输入价格" class="form-control">
+                                        <input id="menuPrice" name="menuPrice" type="number" placeholder="请输入价格"
+                                               class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label>上传配图</label>
+
+                                        <p>仅支持上传一张图片</p>
+
+                                        <div id="my-awesome-dropzone" class="dropzone">
+                                            <div class="dropzone-previews"></div>
+
+                                            <div class="dz-message">把要上传的图片扔进来或者点击选择要上传的文件</div>
+                                        </div>
                                     </div>
 
                                     <div>
@@ -64,15 +86,15 @@
                                 </form>
                             </div>
 
-                            <div class="col-sm-6">
-                                <h4>上传配图</h4>
+                            %{--<div class="col-sm-6">--}%
+                            %{--<h4>上传配图</h4>--}%
 
-                                <form id="my-awesome-dropzone" class="dropzone" action="saveMenu">
-                                    <div class="dropzone-previews"></div>
+                            %{--<form id="my-awesome-dropzone" class="dropzone" action="saveMenu">--}%
+                            %{--<div class="dropzone-previews"></div>--}%
 
-                                    <div class="dz-message">把要上传的图片扔进来或者点击选择要上传的文件</div>
-                                </form>
-                            </div>
+                            %{--<div class="dz-message">把要上传的图片扔进来或者点击选择要上传的文件</div>--}%
+                            %{--</form>--}%
+                            %{--</div>--}%
                         </div>
                     </div>
                 </div>
@@ -227,6 +249,7 @@
 
         Dropzone.options.myAwesomeDropzone = {
 
+            url: "saveMenu",
             autoProcessQueue: false,
             uploadMultiple: false,
             parallelUploads: 100,
@@ -252,8 +275,14 @@
                 });
                 //当超出maxFiles时删除多余的上传文件
                 this.on("maxfilesexceeded", function (file) {
-
                     myDropzone.removeFile(file);
+                });
+                //表单提交数组组装
+                myDropzone.on("sending", function (file, xhr, formData) {
+                    //菜名
+                    formData.append("menuName", $("#menuName").val());
+                    //菜价
+                    formData.append("menuPrice", $("#menuPrice").val());
                 });
             }
 
