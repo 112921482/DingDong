@@ -49,12 +49,12 @@
                                 <form role="form">
                                     <div class="form-group">
                                         <label>菜名</label>
-                                        <input type="text" placeholder="请输入菜名" class="form-control">
+                                        <input name="menuName" type="text" placeholder="请输入菜名" class="form-control">
                                     </div>
 
                                     <div class="form-group">
                                         <label>价格</label>
-                                        <input type="number" placeholder="请输入价格" class="form-control">
+                                        <input name="menuPrice" type="number" placeholder="请输入价格" class="form-control">
                                     </div>
 
                                     <div>
@@ -64,14 +64,13 @@
                                 </form>
                             </div>
 
-                            <div class="col-sm-6"><h4>Not a member?</h4>
+                            <div class="col-sm-6">
+                                <h4>上传配图</h4>
 
-                                <p>You can create an account:</p>
-
-                                <form id="my-awesome-dropzone" class="dropzone" action="form_file_upload.html#">
-                                    <i class="fa fa-upload big-icon"></i>
+                                <form id="my-awesome-dropzone" class="dropzone" action="saveMenu">
                                     <div class="dropzone-previews"></div>
-                                    %{--<button type="submit" class="btn btn-primary pull-right">Submit this form!</button>--}%
+
+                                    <div class="dz-message">把要上传的图片扔进来或者点击选择要上传的文件</div>
                                 </form>
                             </div>
                         </div>
@@ -229,14 +228,17 @@
         Dropzone.options.myAwesomeDropzone = {
 
             autoProcessQueue: false,
-            uploadMultiple: true,
+            uploadMultiple: false,
             parallelUploads: 100,
             maxFiles: 1,
+            addRemoveLinks: true,
+            acceptedFiles: "image/*",
+            dictInvalidFileType: "只接受后缀为BMP、JPG、JPEG、PNG、GIF等文件",
+            dictRemoveFile: "取消上传",
 
             // Dropzone settings
             init: function () {
                 var myDropzone = this;
-//                this.element.querySelector("button[type=submit]")
                 document.querySelector("button[type=submit]").addEventListener("click", function (e) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -247,6 +249,11 @@
                 this.on("successmultiple", function (files, response) {
                 });
                 this.on("errormultiple", function (files, response) {
+                });
+                //当超出maxFiles时删除多余的上传文件
+                this.on("maxfilesexceeded", function (file) {
+
+                    myDropzone.removeFile(file);
                 });
             }
 
