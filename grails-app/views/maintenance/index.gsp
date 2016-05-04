@@ -7,11 +7,10 @@
     <asset:stylesheet src="css/plugins/dropzone/basic.css"/>
     <asset:stylesheet src="css/plugins/dropzone/dropzone.css"/>
     <style>
-    #my-awesome-dropzone{
+    #my-awesome-dropzone {
         min-height: 270px;
-        width: 170px;
     }
-</style>
+    </style>
 </head>
 
 <body>
@@ -57,13 +56,13 @@
                                     <div class="form-group">
                                         <label>菜名</label>
                                         <input id="menuName" name="menuName" type="text" placeholder="请输入菜名"
-                                               class="form-control">
+                                               class="form-control" required>
                                     </div>
 
                                     <div class="form-group">
                                         <label>价格</label>
                                         <input id="menuPrice" name="menuPrice" type="number" placeholder="请输入价格"
-                                               class="form-control">
+                                               class="form-control" step="0.01" min="0.01" required>
                                     </div>
 
                                     <div class="form-group">
@@ -85,16 +84,6 @@
                                     </div>
                                 </form>
                             </div>
-
-                            %{--<div class="col-sm-6">--}%
-                            %{--<h4>上传配图</h4>--}%
-
-                            %{--<form id="my-awesome-dropzone" class="dropzone" action="saveMenu">--}%
-                            %{--<div class="dropzone-previews"></div>--}%
-
-                            %{--<div class="dz-message">把要上传的图片扔进来或者点击选择要上传的文件</div>--}%
-                            %{--</form>--}%
-                            %{--</div>--}%
                         </div>
                     </div>
                 </div>
@@ -251,7 +240,7 @@
 
             url: "saveMenu",
             autoProcessQueue: false,
-            uploadMultiple: false,
+            uploadMultiple: true,
             parallelUploads: 100,
             maxFiles: 1,
             addRemoveLinks: true,
@@ -278,11 +267,17 @@
                     myDropzone.removeFile(file);
                 });
                 //表单提交数组组装
-                myDropzone.on("sending", function (file, xhr, formData) {
+                this.on("sending", function (file, xhr, formData) {
                     //菜名
                     formData.append("menuName", $("#menuName").val());
                     //菜价
                     formData.append("menuPrice", $("#menuPrice").val());
+                });
+                //生成缩略图时调用，用来判断分辨率，高宽比
+                this.on("thumbnail", function (file, dataUrl) {
+                    if ((file.width / 16) != (file.height / 9)) {
+                        myDropzone.removeFile(file);
+                    }
                 });
             }
 

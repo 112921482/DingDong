@@ -6,13 +6,17 @@ import grails.plugin.springsecurity.annotation.Secured
 class MaintenanceController {
 
     def uploadService
+    def maintenanceService
 
     def index() {}
 
     def saveMenu() {
-        def rs = true
-        def picFile = request.getFile("file")
-        rs = uploadService.uploadPic(picFile)
-        return rs
+
+        def picFiles = request.getFiles("file[]")
+        def rs = uploadService.uploadPic(picFiles)
+        if (rs.result) {
+            maintenanceService.saveMenu(params.menuName, new BigDecimal(params.menuPrice.toString()).setScale(2, BigDecimal.ROUND_HALF_UP), rs.savePathList)
+        }
+        redirect action: "index"
     }
 }

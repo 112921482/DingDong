@@ -17,6 +17,9 @@ class MealMenu {
     }
 
     static constraints = {
+        price min: 0.01, scale: 2
+        createTime nullable: true
+        updateTime nullable: true
     }
 
     def beforeInsert() {
