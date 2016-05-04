@@ -69,7 +69,7 @@
 
                                         <label>上传配图</label>
 
-                                        <p>仅支持上传一张图片</p>
+                                        <p>仅支持上传一张图片（建议图片比例为16:9，这样能够在移动端有更好的显示效果）</p>
 
                                         <div id="my-awesome-dropzone" class="dropzone">
                                             <div class="dropzone-previews"></div>
