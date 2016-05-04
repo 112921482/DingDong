@@ -99,9 +99,9 @@
                 <div class="ibox">
                     <div class="ibox-content product-box">
 
-                        <div class="product-imitation" style="padding-top: 0px;padding-bottom: 0px;">
+                        <div class="product-imitation" style="padding-top: 0;padding-bottom: 0;">
                             <img style="height: 100%;width: 100%;"
-                                 src="${grailsApplication.config.picShowPath + mealMenu.getMealPics()[0].getPicUrl()}">
+                                 src="${grailsApplication.config.picShowPath + mealMenu.getMealPics().getAt(0).getPicUrl()}">
                         </div>
 
                         <div class="product-desc">
@@ -109,7 +109,7 @@
                                 ￥${mealMenu.price}
                             </span>
                             %{--<small class="text-muted">Category</small>--}%
-                            <a href="ecommerce_products_grid.html#" class="product-name">${mealMenu.getName()}</a>
+                            <a href="javascript:void(0);" class="product-name">${mealMenu.getName()}</a>
 
 
                             %{--<div class="small m-t-xs">--}%
@@ -117,10 +117,10 @@
                             %{--</div>--}%
 
                             <div class="m-t text-righ">
-
-                                <a href="ecommerce_products_grid.html#"
-                                   class="btn btn-xs btn-outline btn-primary">Info <i
-                                        class="fa fa-long-arrow-right"></i></a>
+                                <button class="btn btn-info " type="button"><i class="fa fa-paste"></i> 编辑</button>
+                                %{--<a href="ecommerce_products_grid.html#"--}%
+                                %{--class="btn btn-xs btn-outline btn-primary">Info <i--}%
+                                %{--class="fa fa-long-arrow-right"></i></a>--}%
                             </div>
                         </div>
                     </div>
