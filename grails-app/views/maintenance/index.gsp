@@ -38,8 +38,7 @@
 <div class="wrapper wrapper-content" style="margin-bottom: -40px;">
     <div class="row">
         <div class="col-lg-1">
-            <a data-toggle="modal" href="form_basic.html#modal-form" class="btn btn-block btn-primary compose-mail"
-               href="javascript:void(0);">新建菜单</a>
+            <a data-toggle="modal" href="#modal-form" class="btn btn-block btn-primary compose-mail">新建菜单</a>
         </div>
 
         <div id="modal-form" class="modal fade" aria-hidden="true">
@@ -52,7 +51,8 @@
 
                                 <p>新建菜单的名字、价格以及图片</p>
 
-                                <form role="form">
+                                <form role="form" action="saveMenu" method="post">
+                                    <g:hiddenField name="savePathString" value="savePathString"/>
                                     <div class="form-group">
                                         <label>菜名</label>
                                         <input id="menuName" name="menuName" type="text" placeholder="请输入菜名"
@@ -62,7 +62,7 @@
                                     <div class="form-group">
                                         <label>价格</label>
                                         <input id="menuPrice" name="menuPrice" type="number" placeholder="请输入价格"
-                                               class="form-control" step="0.01" min="0.01" required>
+                                               class="form-control" max="100000000" step="0.01" min="0.01" required>
                                     </div>
 
                                     <div class="form-group">
@@ -113,7 +113,7 @@
 
 
                             %{--<div class="small m-t-xs">--}%
-                                %{--Many desktop publishing packages and web page editors now.--}%
+                            %{--Many desktop publishing packages and web page editors now.--}%
                             %{--</div>--}%
 
                             <div class="m-t text-righ">
@@ -148,8 +148,9 @@
 
         Dropzone.options.myAwesomeDropzone = {
 
-            url: "saveMenu",
-            autoProcessQueue: false,
+            url: "uploadMenuPic",
+            method: "post",
+            autoProcessQueue: true,
             uploadMultiple: true,
             parallelUploads: 100,
             maxFiles: 1,
@@ -161,11 +162,11 @@
             // Dropzone settings
             init: function () {
                 var myDropzone = this;
-                document.querySelector("button[type=submit]").addEventListener("click", function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    myDropzone.processQueue();
-                });
+//                document.querySelector("button[type=submit]").addEventListener("click", function (e) {
+//                    e.preventDefault();
+//                    e.stopPropagation();
+//                    myDropzone.processQueue();
+//                });
                 this.on("sendingmultiple", function () {
                 });
                 this.on("successmultiple", function (files, response) {
@@ -177,16 +178,25 @@
                     myDropzone.removeFile(file);
                 });
                 //表单提交数组组装
-                this.on("sending", function (file, xhr, formData) {
-                    //菜名
-                    formData.append("menuName", $("#menuName").val());
-                    //菜价
-                    formData.append("menuPrice", $("#menuPrice").val());
-                });
+//                this.on("sending", function (file, xhr, formData) {
+//                    //菜名
+//                    formData.append("menuName", $("#menuName").val());
+//                    //菜价
+//                    formData.append("menuPrice", $("#menuPrice").val());
+//                });
                 //生成缩略图时调用，用来判断分辨率，高宽比
-                this.on("thumbnail", function (file, dataUrl) {
-                    if ((file.width / 16) != (file.height / 9)) {
-                        myDropzone.removeFile(file);
+//                this.on("thumbnail", function (file, dataUrl) {
+//                    if ((file.width / 16) != (file.height / 9)) {
+//                        myDropzone.removeFile(file);
+//                    }
+//                });
+                this.on("success", function (file, data) {
+                    if (data["result"] == true) {
+                        var savePathString = "";
+                        $.each(data["savePathList"], function (name, value) {
+                            savePathString = savePathString + value + ",";
+                        });
+                        $("#savePathString").val(savePathString);
                     }
                 });
             }

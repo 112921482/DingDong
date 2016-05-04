@@ -7,8 +7,7 @@ import grails.transaction.Transactional
 @Transactional
 class MaintenanceService {
 
-    def saveMenu(String menuName, BigDecimal menuPrice, List<String> savePathList) {
-        Boolean rs = true
+    def saveMenu(String menuName, BigDecimal menuPrice, String[] savePathList) {
         MealMenu mealMenu = new MealMenu(
                 name: menuName,
                 price: menuPrice
@@ -21,6 +20,5 @@ class MaintenanceService {
             )
             mealPic.save()
         }
-        [mealMenu: mealMenu]
     }
 }
