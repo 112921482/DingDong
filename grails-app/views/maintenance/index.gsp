@@ -124,7 +124,7 @@
                                     <i class="fa fa-paste"></i>
                                     <span class="bold">编辑</span>
                                 </button>
-                                <button class="btn btn-warning " type="button" menu_id="${mealMenu.getId()}">
+                                <button class="btn btn-warning deleteMenu" type="button" menu_id="${mealMenu.getId()}">
                                     <i class="fa fa-warning"></i>
                                     <span class="bold">删除</span>
                                 </button>
@@ -155,6 +155,39 @@
 
 <script>
     $(document).ready(function () {
+
+        $(".deleteMenu").on("click", function () {
+            var menuId = $(this).attr("menu_id");
+            swal({
+                title: "你确定要这么做？",
+                text: "你将无法恢复这道菜！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "是的!",
+                cancelButtonText: "我再想想",
+                closeOnConfirm: false
+            }, function () {
+                $.getJSON(
+                        "deleteMenu",
+                        {
+                            id: menuId
+                        },
+                        function (result) {
+                            if (result["result"] == true) {
+                                swal({
+                                    title: "已删除!",
+                                    text: "再也没有人能吃到这道菜了！",
+                                    type: "success"
+                                }, function () {
+                                    location.reload();
+                                });
+                            }
+                        }
+                )
+            });
+        });
+
         $("#submitBtn").click(function (event) {
             if ($("#savePathString").val().length == 0) {
                 event.preventDefault();
