@@ -6,6 +6,8 @@
     <title>首页</title>
     <asset:stylesheet src="css/plugins/dropzone/basic.css"/>
     <asset:stylesheet src="css/plugins/dropzone/dropzone.css"/>
+    <!-- Sweet Alert -->
+    <asset:stylesheet src="css/plugins/sweetalert/sweetalert.css"/>
     <style>
     #my-awesome-dropzone {
         min-height: 270px;
@@ -38,7 +40,8 @@
 <div class="wrapper wrapper-content" style="margin-bottom: -40px;">
     <div class="row">
         <div class="col-lg-1">
-            <a data-toggle="modal" href="#modal-form" class="btn btn-block btn-primary compose-mail">新建菜单</a>
+            <a data-toggle="modal" href="#modal-form" class="btn btn-block btn-primary compose-mail"
+               id="createMenu">新建菜单</a>
         </div>
 
         <div id="modal-form" class="modal fade" aria-hidden="true">
@@ -52,7 +55,7 @@
                                 <p>新建菜单的名字、价格以及图片</p>
 
                                 <form role="form" action="saveMenu" method="post">
-                                    <g:hiddenField name="savePathString" value="savePathString"/>
+                                    <g:hiddenField name="savePathString"/>
                                     <div class="form-group">
                                         <label>菜名</label>
                                         <input id="menuName" name="menuName" type="text" placeholder="请输入菜名"
@@ -61,8 +64,12 @@
 
                                     <div class="form-group">
                                         <label>价格</label>
-                                        <input id="menuPrice" name="menuPrice" type="number" placeholder="请输入价格"
-                                               class="form-control" max="100000000" step="0.01" min="0.01" required>
+
+                                        <div class="input-group m-b">
+                                            <span class="input-group-addon">￥</span>
+                                            <input id="menuPrice" name="menuPrice" type="number" placeholder="请输入价格"
+                                                   class="form-control" max="100000000" step="0.01" min="0.01" required>
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
@@ -72,6 +79,7 @@
                                         <p>仅支持上传一张图片（建议图片比例为16:9，这样能够在移动端有更好的显示效果）</p>
 
                                         <div id="my-awesome-dropzone" class="dropzone">
+
                                             <div class="dropzone-previews"></div>
 
                                             <div class="dz-message">把要上传的图片扔进来或者点击选择要上传的文件</div>
@@ -79,7 +87,7 @@
                                     </div>
 
                                     <div>
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs"
+                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" id="submitBtn"
                                                 type="submit"><strong>提交</strong></button>
                                     </div>
                                 </form>
@@ -108,19 +116,18 @@
                             <span class="product-price">
                                 ￥${mealMenu.price}
                             </span>
-                            %{--<small class="text-muted">Category</small>--}%
+
                             <a href="javascript:void(0);" class="product-name">${mealMenu.getName()}</a>
 
-
-                            %{--<div class="small m-t-xs">--}%
-                            %{--Many desktop publishing packages and web page editors now.--}%
-                            %{--</div>--}%
-
                             <div class="m-t text-righ">
-                                <button class="btn btn-info " type="button"><i class="fa fa-paste"></i> 编辑</button>
-                                %{--<a href="ecommerce_products_grid.html#"--}%
-                                %{--class="btn btn-xs btn-outline btn-primary">Info <i--}%
-                                %{--class="fa fa-long-arrow-right"></i></a>--}%
+                                <button class="btn btn-info " type="button">
+                                    <i class="fa fa-paste"></i>
+                                    <span class="bold">编辑</span>
+                                </button>
+                                <button class="btn btn-warning " type="button" menu_id="${mealMenu.getId()}">
+                                    <i class="fa fa-warning"></i>
+                                    <span class="bold">删除</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -143,8 +150,22 @@
 <!-- DROPZONE -->
 <asset:javascript src="plugins/dropzone/dropzone.js"/>
 
+<!-- Sweet alert -->
+<asset:javascript src="plugins/sweetalert/sweetalert.min.js"/>
+
 <script>
     $(document).ready(function () {
+        $("#submitBtn").click(function (event) {
+            if ($("#savePathString").val().length == 0) {
+                event.preventDefault();
+                event.stopPropagation();
+                swal({
+                    title: "图呢？",
+                    text: "你最好上传一张图片好让客人知道TA可能会吃到什么。",
+                    type: "warning"
+                });
+            }
+        });
 
         Dropzone.options.myAwesomeDropzone = {
 
@@ -162,11 +183,14 @@
             // Dropzone settings
             init: function () {
                 var myDropzone = this;
-//                document.querySelector("button[type=submit]").addEventListener("click", function (e) {
-//                    e.preventDefault();
-//                    e.stopPropagation();
-//                    myDropzone.processQueue();
-//                });
+                //每次点击都会重置上传插件
+                $("#modal-form").on("hidden.bs.modal", function (e) {
+                    //重置菜名
+                    $("#menuName").val("");
+                    //重置价格
+                    $("#menuPrice").val("");
+                    myDropzone.removeAllFiles();
+                });
                 this.on("sendingmultiple", function () {
                 });
                 this.on("successmultiple", function (files, response) {
@@ -177,19 +201,6 @@
                 this.on("maxfilesexceeded", function (file) {
                     myDropzone.removeFile(file);
                 });
-                //表单提交数组组装
-//                this.on("sending", function (file, xhr, formData) {
-//                    //菜名
-//                    formData.append("menuName", $("#menuName").val());
-//                    //菜价
-//                    formData.append("menuPrice", $("#menuPrice").val());
-//                });
-                //生成缩略图时调用，用来判断分辨率，高宽比
-//                this.on("thumbnail", function (file, dataUrl) {
-//                    if ((file.width / 16) != (file.height / 9)) {
-//                        myDropzone.removeFile(file);
-//                    }
-//                });
                 this.on("success", function (file, data) {
                     if (data["result"] == true) {
                         var savePathString = "";
