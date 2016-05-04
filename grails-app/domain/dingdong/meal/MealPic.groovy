@@ -7,6 +7,7 @@ class MealPic {
     static belongsTo = [mealMenu: MealMenu]
 
     static mapping = {
+        version false
         picUrl comment: "图片地址"
         mealMenu comment: "meal_menu外键关联"
     }
