@@ -11,7 +11,7 @@ class UploadService {
     def uploadPic(List<MultipartFile> picFiles) {
         def rs = true
         def savePathList = []
-        String filePath = grailsApplication.config.getProperty('picFilePath')
+        String filePath = grailsApplication.config.getProperty('picSavePath')
         //判断文件夹是否存在，不存在则创建
         File file = new File(filePath);
         if (!file.exists()) {
@@ -32,9 +32,10 @@ class UploadService {
                     String fileProName = picFile.getOriginalFilename()
                     //获得文件后缀
                     String picSuffix = fileProName.split('\\.')[-1]
-                    def savePath = filePath + dateString + "." + picSuffix
+                    def fileName = dateString + "." + picSuffix
+                    def savePath = filePath + fileName
                     picFile.transferTo(new File(savePath))
-                    savePathList << savePath
+                    savePathList << fileName
                 } catch (Exception ex) {
                     log.error(ex.getMessage())
                     rs = false
@@ -42,7 +43,7 @@ class UploadService {
             }
         }
         [
-                result  : rs,
+                result      : rs,
                 savePathList: savePathList
         ]
     }

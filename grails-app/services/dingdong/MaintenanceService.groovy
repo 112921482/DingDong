@@ -8,9 +8,7 @@ import grails.transaction.Transactional
 class MaintenanceService {
 
     def saveMenu(String menuName, BigDecimal menuPrice, List<String> savePathList) {
-        MealMenu.withTransaction{
-
-        }
+        Boolean rs = true
         MealMenu mealMenu = new MealMenu(
                 name: menuName,
                 price: menuPrice
