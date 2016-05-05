@@ -31,7 +31,7 @@
 
         <h3>A.山海經——美食外卖</h3>
 
-        <p>唯美食与爱情不可辜负</p>
+        <p>世间万物,唯有美食与爱不可辜负</p>
 
         <form class="m-t" role="form" action="${postUrl ?: '/login/authenticate'}" method="POST" id="loginForm"
               autocomplete="off">

@@ -106,11 +106,20 @@
             <div class="col-md-3">
                 <div class="ibox">
                     <div class="ibox-content product-box">
+                        <g:if test="${mealMenu.getMealPics().size() > 0}">
+                            <div class="product-imitation" style="padding-top: 0;padding-bottom: 0;">
 
-                        <div class="product-imitation" style="padding-top: 0;padding-bottom: 0;">
-                            <img style="height: 100%;width: 100%;"
-                                 src="${grailsApplication.config.picShowPath + mealMenu.getMealPics().getAt(0).getPicUrl()}">
-                        </div>
+                                <img style="height: 100%;width: 100%;"
+                                     src="${grailsApplication.config.picShowPath + mealMenu.getMealPics().getAt(0).getPicUrl()}">
+
+                            </div>
+                        </g:if>
+                        <g:else>
+                            <div class="product-imitation">
+                                [ 图没了 ]
+                            </div>
+                        </g:else>
+
 
                         <div class="product-desc">
                             <span class="product-price">
