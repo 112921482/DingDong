@@ -35,8 +35,10 @@ class MaintenanceController {
      */
     def saveMenu() {
         def savePathList = params.savePathString.toString().split(",")
-        maintenanceService.saveMenu(params.menuName, new BigDecimal(params.menuPrice.toString()).setScale(2, BigDecimal.ROUND_HALF_UP), savePathList)
-        redirect action: "index"
+        def rs = [
+                result: maintenanceService.saveMenu(params.menuName, new BigDecimal(params.menuPrice.toString()).setScale(2, BigDecimal.ROUND_HALF_UP), savePathList)
+        ]
+        render rs as JSON
     }
 
     def deleteMenu(Long id) {

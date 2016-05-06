@@ -54,22 +54,17 @@
 
                                 <p>新建菜单的名字、价格以及图片</p>
 
-                                <form role="form" action="saveMenu" method="post">
-                                    <g:hiddenField name="savePathString"/>
+                                <form role="form" method="post" id="menuForm">
                                     <div class="form-group">
                                         <label>菜名</label>
                                         <input id="menuName" name="menuName" type="text" placeholder="请输入菜名"
-                                               class="form-control" required>
+                                               class="form-control">
                                     </div>
 
                                     <div class="form-group">
                                         <label>价格</label>
-
-                                        <div class="input-group m-b">
-                                            <span class="input-group-addon">￥</span>
-                                            <input id="menuPrice" name="menuPrice" type="number" placeholder="请输入价格"
-                                                   class="form-control" max="100000000" step="0.01" min="0.01" required>
-                                        </div>
+                                        <input id="menuPrice" name="menuPrice" type="number" placeholder="请输入价格"
+                                               class="form-control" max="100000000" step="0.01" min="0.01">
                                     </div>
 
                                     <div class="form-group">
@@ -79,11 +74,19 @@
                                         <p>仅支持上传一张图片（建议图片比例为16:9，这样能够在移动端有更好的显示效果）</p>
 
                                         <div id="my-awesome-dropzone" class="dropzone">
+                                            <div class="fallback">
+                                                <input name="file" type="file" multiple/>
+                                            </div>
 
                                             <div class="dropzone-previews"></div>
 
                                             <div class="dz-message">把要上传的图片扔进来或者点击选择要上传的文件</div>
+
                                         </div>
+                                        <input id="savePathString" name="savePathString" type="text"
+                                               placeholder="请上传图片" class="form-control" style="
+                                        position: absolute;width: 100px;margin-top: -35px;z-index: -1;
+                                        ">
                                     </div>
 
                                     <div>
@@ -146,25 +149,23 @@
     </div>
 </div>
 
-<!-- Mainly scripts -->
-<asset:javascript src="jquery-2.2.3.min.js"/>
-<asset:javascript src="bootstrap.min.js"/>
-<asset:javascript src="plugins/metisMenu/jquery.metisMenu.js"/>
-<asset:javascript src="plugins/slimscroll/jquery.slimscroll.min.js"/>
-
-<!-- Custom and plugin javascript -->
-<asset:javascript src="inspinia.js"/>
-<asset:javascript src="plugins/pace/pace.min.js"/>
-
 <!-- DROPZONE -->
 <asset:javascript src="plugins/dropzone/dropzone.js"/>
 
 <!-- Sweet alert -->
 <asset:javascript src="plugins/sweetalert/sweetalert.min.js"/>
 
+<!-- Jquery Validate -->
+<asset:javascript src="plugins/jquery-ui/jquery-ui.min.js"/>
+<asset:javascript src="plugins/validate/jquery.validate.min.js"/>
+<asset:javascript src="plugins/validate/jquery.form.min.js"/>
+
 <script>
     $(document).ready(function () {
 
+        /**
+         * 删除菜单
+         */
         $(".deleteMenu").on("click", function () {
             var menuId = $(this).attr("menu_id");
             swal({
@@ -197,18 +198,10 @@
             });
         });
 
-        $("#submitBtn").click(function (event) {
-            if ($("#savePathString").val().length == 0) {
-                event.preventDefault();
-                event.stopPropagation();
-                swal({
-                    title: "图呢？",
-                    text: "你最好上传一张图片好让客人知道TA可能会吃到什么。",
-                    type: "warning"
-                });
-            }
-        });
 
+        /**
+         * 上传控件初始化
+         */
         Dropzone.options.myAwesomeDropzone = {
 
             url: "uploadMenuPic",
@@ -226,7 +219,7 @@
             init: function () {
                 var myDropzone = this;
                 //每次点击都会重置上传插件
-                $("#modal-form").on("hidden.bs.modal", function (e) {
+                $("#modal-form").on("hidden.bs.modal", function () {
                     //重置菜名
                     $("#menuName").val("");
                     //重置价格
@@ -254,8 +247,53 @@
                 });
             }
 
-        }
+        };
 
+        /**
+         * 表单验证
+         */
+        var menuForm = $("#menuForm");
+        menuForm.ajaxForm({
+            url: "saveMenu",
+            success: function (data) {
+                if (data["result"] == true) {
+                    swal({
+                        title: "已添加!",
+                        text: "再也没有人能吃到这道菜了！",
+                        type: "success"
+                    }, function () {
+                        location.reload();
+                    });
+                }
+            }
+        });
+        menuForm.validate({
+            rules: {
+                menuName: {
+                    required: true
+                },
+                menuPrice: {
+                    required: true
+                },
+                savePathString: {
+                    required: true
+                }
+            },
+            messages: {
+                menuName: {
+                    required: "这菜总有个名字吧！"
+                },
+                menuPrice: {
+                    required: "不是说不能免费，但是你写个0我才好处理你说是不？"
+                },
+                savePathString: {
+                    required: "没图我怎么有食欲？！"
+                }
+            },
+            submitHandler: function (form) {
+                $(form).ajaxSubmit();
+            }
+        });
     });
 </script>
 </body>

@@ -30,6 +30,7 @@ class MaintenanceService {
             }
             rs = false
         } else {
+            mealMenu.save()
             savePathList.each { savePath ->
                 MealPic mealPic = new MealPic(
                         picUrl: savePath,
@@ -50,6 +51,7 @@ class MaintenanceService {
                 }
             }
         }
+        return rs
     }
 
     /**
