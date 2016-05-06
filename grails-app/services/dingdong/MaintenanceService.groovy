@@ -25,10 +25,11 @@ class MaintenanceService {
     def deleteMenu(Long id) {
         Boolean rs = true
         MealMenu mealMenu = MealMenu.get(id)
-        try {
-            mealMenu.delete()
-        } catch (NullPointerException npe) {
-            log.error(npe.getMessage())
+        if (mealMenu) {
+            if (!mealMenu.delete()) {
+                rs = false
+            }
+        } else {
             rs = false
         }
         return rs
