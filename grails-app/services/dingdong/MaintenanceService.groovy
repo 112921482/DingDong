@@ -27,8 +27,8 @@ class MaintenanceService {
         MealMenu mealMenu = MealMenu.get(id)
         try {
             mealMenu.delete()
-        } catch (Exception ex) {
-            log.error(ex.getMessage())
+        } catch (NullPointerException npe) {
+            log.error(npe.getMessage())
             rs = false
         }
         return rs

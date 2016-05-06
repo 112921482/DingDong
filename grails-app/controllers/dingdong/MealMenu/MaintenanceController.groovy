@@ -41,7 +41,7 @@ class MaintenanceController {
 
     def deleteMenu(Long id) {
         def rs = [
-                result: maintenanceService.deleteMenu(10)
+                result: maintenanceService.deleteMenu(id)
         ]
         render rs as JSON
     }
