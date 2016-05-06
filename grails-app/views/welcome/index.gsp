@@ -356,12 +356,6 @@
     </div>
 
 </div>
-
-<asset:javascript src="jquery-2.2.3.min.js"/>
-<asset:javascript src="bootstrap.min.js"/>
-<asset:javascript src="plugins/metisMenu/jquery.metisMenu.js"/>
-<asset:javascript src="plugins/slimscroll/jquery.slimscroll.min.js"/>
-
 <!-- Flot -->
 <asset:javascript src="plugins/flot/jquery.flot.js"/>
 <asset:javascript src="plugins/flot/jquery.flot.tooltip.min.js"/>
@@ -371,13 +365,8 @@
 <asset:javascript src="plugins/flot/jquery.flot.symbol.js"/>
 <asset:javascript src="plugins/flot/jquery.flot.time.js"/>
 
-<!-- Custom and plugin javascript -->
-<asset:javascript src="inspinia.js"/>
-<asset:javascript src="plugins/pace/pace.min.js"/>
-
 <!-- Sparkline -->
 <asset:javascript src="plugins/sparkline/jquery.sparkline.min.js"/>
-
 <script>
     $(document).ready(function () {
 

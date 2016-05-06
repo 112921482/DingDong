@@ -19,6 +19,16 @@
         font-family: "open sans", "Helvetica Neue", 微软雅黑, Arial, sans-serif;
     }
     </style>
+
+    <!-- Mainly scripts -->
+    <asset:javascript src="jquery-2.2.3.min.js"/>
+    <asset:javascript src="bootstrap.min.js"/>
+    <asset:javascript src="plugins/metisMenu/jquery.metisMenu.js"/>
+    <asset:javascript src="plugins/slimscroll/jquery.slimscroll.min.js"/>
+
+    <!-- Custom and plugin javascript -->
+    <asset:javascript src="inspinia.js"/>
+    <asset:javascript src="plugins/pace/pace.min.js"/>
 </head>
 
 <body>
