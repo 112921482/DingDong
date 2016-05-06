@@ -20,18 +20,33 @@ class MaintenanceService {
                 name: menuName,
                 price: menuPrice
         )
-        if (!mealMenu.save()) {
+        if (!mealMenu.validate()) {
+            mealMenu.errors.allErrors.each {
+                def msg = it.getDefaultMessage()
+                it.getArguments().eachWithIndex { arg, index ->
+                    msg.replace("[{${index}}]", arg.toString())
+                }
+                log.error(msg)
+            }
             rs = false
         } else {
             savePathList.each { savePath ->
                 MealPic mealPic = new MealPic(
-                        picUrl: savePath,
+//                        picUrl: savePath,
                         mealMenu: mealMenu
                 )
-                mealPic.save()
-                if (!mealPic.save()) {
+                if (!mealPic.validate()) {
+                    mealPic.errors.allErrors.each {
+                        def msg = it.getDefaultMessage()
+                        it.getArguments().eachWithIndex { arg, index ->
+                            msg.replace("[{${index}}]", arg.toString())
+                        }
+                        log.error(msg)
+                    }
                     rs = false
                     return false
+                } else {
+                    mealPic.save()
                 }
             }
         }
