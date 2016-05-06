@@ -24,7 +24,7 @@ class MaintenanceService {
             mealMenu.errors.allErrors.each {
                 def msg = it.getDefaultMessage()
                 it.getArguments().eachWithIndex { arg, index ->
-                    msg.replace("[{${index}}]", arg.toString())
+                    msg = msg.replace("[{${index}}]", arg.toString())
                 }
                 log.error(msg)
             }
@@ -32,14 +32,14 @@ class MaintenanceService {
         } else {
             savePathList.each { savePath ->
                 MealPic mealPic = new MealPic(
-//                        picUrl: savePath,
+                        picUrl: savePath,
                         mealMenu: mealMenu
                 )
                 if (!mealPic.validate()) {
                     mealPic.errors.allErrors.each {
                         def msg = it.getDefaultMessage()
                         it.getArguments().eachWithIndex { arg, index ->
-                            msg.replace("[{${index}}]", arg.toString())
+                            msg = msg.replace("[{${index}}]", arg.toString())
                         }
                         log.error(msg)
                     }
