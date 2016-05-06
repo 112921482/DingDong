@@ -16,9 +16,9 @@ dataSource:
 
 environments:
     development:
-        grails:
-            gorm:
-                failOnError: true
+#        grails:
+#            gorm:
+#                failOnError: true
         picSavePath: E:\images\
         picShowPath: http://localhost:8080/images/
         dataSource:
