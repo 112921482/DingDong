@@ -62,12 +62,10 @@ class MaintenanceService {
     def deleteMenu(Long id) {
         Boolean rs = true
         MealMenu mealMenu = MealMenu.get(id)
-        if (mealMenu) {
-            if (!mealMenu.delete()) {
-                rs = false
-            }
-        } else {
+        if (!mealMenu) {
             rs = false
+        } else {
+            mealMenu.delete()
         }
         return rs
     }
