@@ -9,18 +9,6 @@ $(document).ready(function () {
      */
     var menuForm = $("#menuForm");
 
-    var options = {
-        success: function (data) {
-            console.log(data);
-        },
-        timeout: 3000,
-        error: function (data) {
-            alert("超时");
-        }
-    };
-
-    menuForm.ajaxForm(options);
-
     menuForm.validate({
         rules: {
             menuName: {
@@ -47,14 +35,25 @@ $(document).ready(function () {
             savePathString: {
                 required: "没图我怎么有食欲？！"
             }
-        }
-    });
-
-    $("#submitBtn").click(function () {
-        event.preventDefault();
-        event.stopPropagation();
-        if (menuForm.valid()) {
-            menuForm.ajaxSubmit();
+        }, submitHandler: function (form) {
+            $(form).ajaxSubmit({
+                success: function (data) {
+                    if (data["result"] == true) {
+                        swal({
+                            title: "已添加！",
+                            type: "success"
+                        }, function () {
+                            location.reload();
+                        });
+                    } else {
+                        swal({
+                            title: "添加失败！",
+                            type: "fail"
+                        });
+                    }
+                }
+            });
+            return false;
         }
     });
 
@@ -81,8 +80,7 @@ $(document).ready(function () {
                 function (result) {
                     if (result["result"] == true) {
                         swal({
-                            title: "已删除!",
-                            text: "再也没有人能吃到这道菜了！",
+                            title: "已删除！",
                             type: "success"
                         }, function () {
                             location.reload();
