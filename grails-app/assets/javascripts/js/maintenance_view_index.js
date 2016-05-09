@@ -48,7 +48,7 @@ $(document).ready(function () {
                     } else {
                         swal({
                             title: "添加失败！",
-                            type: "fail"
+                            type: "error"
                         });
                     }
                 }
