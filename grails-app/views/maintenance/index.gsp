@@ -9,7 +9,14 @@
     <!-- Sweet Alert -->
     <asset:stylesheet src="css/plugins/sweetalert/sweetalert.css"/>
     <style>
-    #my-awesome-dropzone {
+    /*#my-awesome-dropzone {*/
+    /*min-height: 270px;*/
+    /*}*/
+
+    /*#my-awesome-dropzone-to-edit {*/
+    /*min-height: 288px;*/
+    /*}*/
+    .dropzone {
         min-height: 270px;
     }
     </style>
@@ -43,59 +50,6 @@
             <a data-toggle="modal" href="#modal-form" class="btn btn-block btn-primary compose-mail"
                id="createMenu">新建菜单</a>
         </div>
-
-        <div id="modal-form" class="modal fade" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h3 class="m-t-none m-b">新建菜单</h3>
-
-                                <p>新建菜单的名字、价格以及图片</p>
-
-                                <form role="form" id="menuForm" action="saveMenu" method="post">
-                                    <div class="form-group">
-                                        <label>菜名</label>
-                                        <input id="menuName" name="menuName" type="text" placeholder="请输入菜名"
-                                               class="form-control">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>价格</label>
-                                        <input id="menuPrice" name="menuPrice" type="number" placeholder="请输入价格"
-                                               class="form-control" min="0" max="1000000" step="0.01">
-                                    </div>
-
-                                    <div class="form-group">
-
-                                        <label>上传配图</label>
-
-                                        <p>仅支持上传一张图片（建议图片比例为16:9，这样能够在移动端有更好的显示效果）</p>
-
-                                        <div id="my-awesome-dropzone" class="dropzone">
-                                            <div class="dropzone-previews"></div>
-
-                                            <div class="dz-message">把要上传的图片扔进来或者点击选择要上传的文件</div>
-
-                                        </div>
-                                        <input id="savePathString" name="savePathString" type="text"
-                                               placeholder="请上传图片" class="form-control"
-                                               style="position: absolute;width: 100px;margin-top: -35px;
-                                               z-index: -1;">
-                                    </div>
-
-                                    <div>
-                                        <button class="btn btn-sm btn-primary pull-right m-t-n-xs" id="submitBtn"
-                                                type="submit"><strong>提交</strong></button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -128,7 +82,12 @@
                             <a href="javascript:void(0);" class="product-name">${mealMenu.getName()}</a>
 
                             <div class="m-t text-righ">
-                                <button class="btn btn-info " type="button">
+                                <button class="btn btn-info updateBtn" type="button" data-toggle="modal"
+                                        data-target="#modal-edit-form"
+                                        menu_id="${mealMenu.getId()}"
+                                        menu_name="${mealMenu.getName()}"
+                                        menu_price="${mealMenu.getPrice()}"
+                                        menu_pic="${mealMenu.getMealPics().size() > 0 ? webRequest.getBaseUrl().replace("8090", "8080") + "/images/" + mealMenu.getMealPics().getAt(0).getPicUrl() : ''}">
                                     <i class="fa fa-paste"></i>
                                     <span class="bold">编辑</span>
                                 </button>
@@ -142,6 +101,126 @@
                 </div>
             </div>
         </g:each>
+    </div>
+</div>
+
+<!-- 新建菜单模态框 -->
+<div id="modal-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h3 class="m-t-none m-b">新建菜单</h3>
+
+                        <p>新建菜单的名字、价格以及图片</p>
+
+                        <form role="form" id="menuForm" action="saveMenu" method="post">
+                            <div class="form-group">
+                                <label>菜名</label>
+                                <input id="menuName" name="menuName" type="text" placeholder="请输入菜名"
+                                       class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>价格</label>
+                                <input id="menuPrice" name="menuPrice" type="number" placeholder="请输入价格"
+                                       class="form-control" min="0" max="1000000" step="0.01">
+                            </div>
+
+                            <div class="form-group">
+
+                                <label>上传配图</label>
+
+                                <p>仅支持上传一张图片（建议图片比例为16:9，这样能够在移动端有更好的显示效果）</p>
+
+                                <div id="my-awesome-dropzone" class="dropzone">
+                                    <div class="dropzone-previews"></div>
+
+                                    <div class="dz-message">把要上传的图片扔进来或者点击选择要上传的文件</div>
+
+                                </div>
+                                <input id="savePathString" name="savePathString" type="text"
+                                       placeholder="请上传图片" class="form-control"
+                                       style="position: absolute;width: 100px;margin-top: -35px;
+                                       z-index: -1;">
+                            </div>
+
+                            <div>
+                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" id="submitBtn"
+                                        type="submit"><strong>提交</strong></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 编辑菜单模态框 -->
+<div id="modal-edit-form" class="modal fade" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form role="form" id="menuFormToEdit" action="updateMenu" method="post">
+                    <div class="row">
+                        <div class="col-sm-6 b-r">
+                            <h3 class="m-t-none m-b">编辑菜单</h3>
+
+                            <p>编辑菜单的名字、价格以及图片</p>
+
+                            <div class="form-group">
+                                <label>菜名</label>
+                                <input id="menuNameToEdit" name="menuName" type="text" placeholder="请输入菜名"
+                                       class="form-control">
+                            </div>
+
+                            <div class="form-group">
+                                <label>价格</label>
+                                <input id="menuPriceToEdit" name="menuPrice" type="number" placeholder="请输入价格"
+                                       class="form-control" min="0" max="1000000" step="0.01">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <h3 class="m-t-none m-b">已上传图片</h3>
+
+                            <p>修改后将无法恢复该图</p>
+                            <img src="" style="height: 100%;width: 100%">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+
+                                <label>上传配图</label>
+
+                                <p>仅支持上传一张图片（建议图片比例为16:9，这样能够在移动端有更好的显示效果）</p>
+
+                                <div id="my-awesome-dropzone-to-edit" class="dropzone">
+                                    <div class="dropzone-previews"></div>
+
+                                    <div class="dz-message">把要上传的图片扔进来或者点击选择要上传的文件</div>
+
+                                </div>
+                                <input id="savePathStringToEdit" name="savePathStringToEdit" type="text"
+                                       placeholder="请上传图片" class="form-control"
+                                       style="position: absolute;width: 100px;margin-top: -35px;
+                                       z-index: -1;">
+                            </div>
+
+
+                            <div>
+                                <button class="btn btn-sm btn-primary pull-right m-t-n-xs"
+                                        type="submit"><strong>提交</strong></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
