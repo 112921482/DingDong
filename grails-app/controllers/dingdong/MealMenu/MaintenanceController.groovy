@@ -41,6 +41,11 @@ class MaintenanceController {
         render rs as JSON
     }
 
+    /**
+     * 删除菜单
+     * @param id 菜单主键
+     * @return
+     */
     def deleteMenu(Long id) {
         def rs = [
                 result: maintenanceService.deleteMenu(id)
