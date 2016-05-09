@@ -22,9 +22,8 @@ class UploadService {
                 rs = false
             }
         }
-
-        picFiles.each { picFile ->
-            if (rs) {
+        if (rs) {
+            picFiles.each { picFile ->
                 try {
                     Date d = new Date();
                     String dateString = d.format("yyyymmddhhmmssSSS")
