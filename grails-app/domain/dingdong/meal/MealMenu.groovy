@@ -17,7 +17,7 @@ class MealMenu {
     }
 
     static constraints = {
-        price min: 0.01, scale: 2
+        price max: 1000000.00, min: 0.00, scale: 2
         createTime nullable: true
         updateTime nullable: true
     }

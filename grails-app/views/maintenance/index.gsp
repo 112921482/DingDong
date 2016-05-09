@@ -54,7 +54,7 @@
 
                                 <p>新建菜单的名字、价格以及图片</p>
 
-                                <form role="form" method="post" id="menuForm">
+                                <form role="form" id="menuForm" action="saveMenu" method="post">
                                     <div class="form-group">
                                         <label>菜名</label>
                                         <input id="menuName" name="menuName" type="text" placeholder="请输入菜名"
@@ -64,7 +64,7 @@
                                     <div class="form-group">
                                         <label>价格</label>
                                         <input id="menuPrice" name="menuPrice" type="number" placeholder="请输入价格"
-                                               class="form-control" max="100000000" step="0.01" min="0.01">
+                                               class="form-control" min="0" max="1000000" step="0.01">
                                     </div>
 
                                     <div class="form-group">
@@ -74,19 +74,15 @@
                                         <p>仅支持上传一张图片（建议图片比例为16:9，这样能够在移动端有更好的显示效果）</p>
 
                                         <div id="my-awesome-dropzone" class="dropzone">
-                                            <div class="fallback">
-                                                <input name="file" type="file" multiple/>
-                                            </div>
-
                                             <div class="dropzone-previews"></div>
 
                                             <div class="dz-message">把要上传的图片扔进来或者点击选择要上传的文件</div>
 
                                         </div>
                                         <input id="savePathString" name="savePathString" type="text"
-                                               placeholder="请上传图片" class="form-control" style="
-                                        position: absolute;width: 100px;margin-top: -35px;z-index: -1;
-                                        ">
+                                               placeholder="请上传图片" class="form-control"
+                                               style="position: absolute;width: 100px;margin-top: -35px;
+                                               z-index: -1;">
                                     </div>
 
                                     <div>
@@ -160,141 +156,7 @@
 <asset:javascript src="plugins/validate/jquery.validate.min.js"/>
 <asset:javascript src="plugins/validate/jquery.form.min.js"/>
 
-<script>
-    $(document).ready(function () {
-
-        /**
-         * 删除菜单
-         */
-        $(".deleteMenu").on("click", function () {
-            var menuId = $(this).attr("menu_id");
-            swal({
-                title: "你确定要这么做？",
-                text: "你将无法恢复这道菜！",
-                type: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "是的!",
-                cancelButtonText: "我再想想",
-                closeOnConfirm: false
-            }, function () {
-                $.getJSON(
-                        "deleteMenu",
-                        {
-                            id: menuId
-                        },
-                        function (result) {
-                            if (result["result"] == true) {
-                                swal({
-                                    title: "已删除!",
-                                    text: "再也没有人能吃到这道菜了！",
-                                    type: "success"
-                                }, function () {
-                                    location.reload();
-                                });
-                            }
-                        }
-                )
-            });
-        });
-
-
-        /**
-         * 上传控件初始化
-         */
-        Dropzone.options.myAwesomeDropzone = {
-
-            url: "uploadMenuPic",
-            method: "post",
-            autoProcessQueue: true,
-            uploadMultiple: true,
-            parallelUploads: 100,
-            maxFiles: 1,
-            addRemoveLinks: true,
-            acceptedFiles: "image/*",
-            dictInvalidFileType: "只接受后缀为BMP、JPG、JPEG、PNG、GIF等文件",
-            dictRemoveFile: "取消上传",
-
-            // Dropzone settings
-            init: function () {
-                var myDropzone = this;
-                //每次点击都会重置上传插件
-                $("#modal-form").on("hidden.bs.modal", function () {
-                    //重置菜名
-                    $("#menuName").val("");
-                    //重置价格
-                    $("#menuPrice").val("");
-                    myDropzone.removeAllFiles();
-                });
-                this.on("sendingmultiple", function () {
-                });
-                this.on("successmultiple", function (files, response) {
-                });
-                this.on("errormultiple", function (files, response) {
-                });
-                //当超出maxFiles时删除多余的上传文件
-                this.on("maxfilesexceeded", function (file) {
-                    myDropzone.removeFile(file);
-                });
-                this.on("success", function (file, data) {
-                    if (data["result"] == true) {
-                        var savePathString = "";
-                        $.each(data["savePathList"], function (name, value) {
-                            savePathString = savePathString + value + ",";
-                        });
-                        $("#savePathString").val(savePathString);
-                    }
-                });
-            }
-
-        };
-
-        /**
-         * 表单验证
-         */
-        var menuForm = $("#menuForm");
-        menuForm.ajaxForm({
-            url: "saveMenu",
-            success: function (data) {
-                if (data["result"] == true) {
-                    swal({
-                        title: "已添加!",
-                        text: "再也没有人能吃到这道菜了！",
-                        type: "success"
-                    }, function () {
-                        location.reload();
-                    });
-                }
-            }
-        });
-        menuForm.validate({
-            rules: {
-                menuName: {
-                    required: true
-                },
-                menuPrice: {
-                    required: true
-                },
-                savePathString: {
-                    required: true
-                }
-            },
-            messages: {
-                menuName: {
-                    required: "这菜总有个名字吧！"
-                },
-                menuPrice: {
-                    required: "不是说不能免费，但是你写个0我才好处理你说是不？"
-                },
-                savePathString: {
-                    required: "没图我怎么有食欲？！"
-                }
-            },
-            submitHandler: function (form) {
-                $(form).ajaxSubmit();
-            }
-        });
-    });
-</script>
+<!-- 页面js -->
+<asset:javascript src="js/maintenance_view_index.js"/>
 </body>
 </html>
