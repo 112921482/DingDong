@@ -125,7 +125,7 @@
                             <div class="form-group">
                                 <label>价格</label>
                                 <input id="menuPrice" name="menuPrice" type="number" placeholder="请输入价格"
-                                       class="form-control" min="0.00" max="1000000.00" step="0.01">
+                                       class="form-control" min="0" max="1000000" step="0.01">
                             </div>
 
                             <div class="form-group">
