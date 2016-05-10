@@ -12,6 +12,7 @@
     <asset:stylesheet src="css/animate.css"/>
     <asset:stylesheet src="css/style.css"/>
 
+    <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
     <style>
     body {
         font-family: "open sans", "Helvetica Neue", 微软雅黑, Arial, sans-serif;
