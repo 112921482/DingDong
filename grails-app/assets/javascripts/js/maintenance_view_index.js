@@ -9,7 +9,7 @@ $(document).ready(function () {
      */
     var menuForm = $("#menuForm");
 
-    menuForm.validate({
+    var createValidator = menuForm.validate({
         rules: {
             menuName: {
                 required: true
@@ -120,6 +120,7 @@ $(document).ready(function () {
                 //重置价格
                 $("#menuPrice").val("");
                 myDropzone.removeAllFiles();
+                createValidator.resetForm();
             });
             this.on("sendingmultiple", function () {
             });
@@ -134,6 +135,7 @@ $(document).ready(function () {
                         savePathString = savePathString + value + ",";
                     });
                     $("#savePathString").val(savePathString);
+                    createValidator.element("#savePathString");
                     //不能继续上传，目前仅支持上传一个图片
                     if (myDropzone.getAcceptedFiles().length >= maxFiles) {
                         myDropzone.disable();
@@ -151,6 +153,7 @@ $(document).ready(function () {
                     savePathString = savePathString + data["savePathList"][0] + ",";
                 });
                 savePathStringElm.val(savePathString);
+                createValidator.element("#savePathString");
                 if (myDropzone.getAcceptedFiles().length < maxFiles) {
                     myDropzone.enable();
                 }
