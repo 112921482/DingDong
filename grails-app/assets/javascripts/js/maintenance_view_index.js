@@ -15,7 +15,6 @@ $(document).ready(function () {
                 required: true
             },
             menuPrice: {
-                step: 0.01,
                 required: true
             },
             savePathString: {
@@ -30,7 +29,7 @@ $(document).ready(function () {
                 number: "请输入一个有效的数字！",
                 min: "请填写一个有效价格！",
                 max: "请填写一个大家能够消费的价格！",
-                step: "小数点太多了，你找的开吗？",
+                step: "仅支持到“分”的支付金额",
                 required: "不是说不能免费，但是你写个0我才好处理你说是不？"
             },
             savePathString: {
