@@ -3,19 +3,12 @@
 
 <head>
     <meta name="layout" content="main"/>
-    <title>首页</title>
+    <title>菜单维护</title>
     <asset:stylesheet src="css/plugins/dropzone/basic.css"/>
     <asset:stylesheet src="css/plugins/dropzone/dropzone.css"/>
     <!-- Sweet Alert -->
     <asset:stylesheet src="css/plugins/sweetalert/sweetalert.css"/>
     <style>
-    /*#my-awesome-dropzone {*/
-    /*min-height: 270px;*/
-    /*}*/
-
-    /*#my-awesome-dropzone-to-edit {*/
-    /*min-height: 288px;*/
-    /*}*/
     .dropzone {
         min-height: 270px;
     }
