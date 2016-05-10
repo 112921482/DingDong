@@ -2,7 +2,7 @@
     <nav class="navbar navbar-static-top ${controllerName.equals("welcome") ? 'white-bg' : ''}" role="navigation"
          style="margin-bottom: 0">
         <div class="navbar-header">
-            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="dashboard_5.html#"><i
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="javascript:void(0);"><i
                     class="fa fa-bars"></i></a>
 
             <form role="search" class="navbar-form-custom" action="search_results.html">
