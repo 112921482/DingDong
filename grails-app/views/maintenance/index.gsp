@@ -125,7 +125,7 @@
                             <div class="form-group">
                                 <label>价格</label>
                                 <input id="menuPrice" name="menuPrice" type="number" placeholder="请输入价格"
-                                       class="form-control" min="0" max="1000000" step="0.01">
+                                       class="form-control" min="0.00" max="1000000.00" step="0.01">
                             </div>
 
                             <div class="form-group">
@@ -172,13 +172,13 @@
 
                             <div class="form-group">
                                 <label>菜名</label>
-                                <input id="menuNameToEdit" name="menuName" type="text" placeholder="请输入菜名"
+                                <input id="menuNameToEdit" name="menuNameToEdit" type="text" placeholder="请输入菜名"
                                        class="form-control">
                             </div>
 
                             <div class="form-group">
                                 <label>价格</label>
-                                <input id="menuPriceToEdit" name="menuPrice" type="number" placeholder="请输入价格"
+                                <input id="menuPriceToEdit" name="menuPriceToEdit" type="number" placeholder="请输入价格"
                                        class="form-control" min="0" max="1000000" step="0.01">
                             </div>
                         </div>
@@ -187,7 +187,7 @@
                             <h3 class="m-t-none m-b">已上传图片</h3>
 
                             <p>修改后将无法恢复该图</p>
-                            <img src="" style="height: 100%;width: 100%">
+                            <img src="" style="height: 100%;width: 100%" id="menuPicToShow">
                         </div>
                     </div>
 
@@ -210,7 +210,6 @@
                                        style="position: absolute;width: 100px;margin-top: -35px;
                                        z-index: -1;">
                             </div>
-
 
                             <div>
                                 <button class="btn btn-sm btn-primary pull-right m-t-n-xs"
