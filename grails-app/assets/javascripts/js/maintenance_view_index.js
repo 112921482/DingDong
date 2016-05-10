@@ -15,6 +15,7 @@ $(document).ready(function () {
                 required: true
             },
             menuPrice: {
+                step: 0.01,
                 required: true
             },
             savePathString: {
@@ -232,5 +233,11 @@ $(document).ready(function () {
         var menuPrice = $(this).attr("menu_price");
         //菜图片
         var menuPic = $(this).attr("menu_pic");
+        //为编辑modal赋值
+        var menuFormToEdit = $("#menuFormToEdit");
+        menuFormToEdit.find("#menuNameToEdit").val(menuName);
+        menuFormToEdit.find("#menuPriceToEdit").val(menuPrice);
+        menuFormToEdit.find("#menuPicToShow").attr("src", menuPic);
+
     });
 });
