@@ -52,4 +52,19 @@ class MaintenanceController {
         ]
         render rs as JSON
     }
+
+    /**
+     * 更新菜单
+     * @param id 菜单主键
+     */
+    def updateMenu(Long menuId) {
+        String[] savePathList = new String()[]
+        if (params.savePathStringToEdit.length() > 0) {
+            savePathList = params.savePathStringToEdit.toString().split(",")
+        }
+        def rs = [
+                result: maintenanceService.updateMenu(menuId, params.menuNameToEdit, new BigDecimal(params.menuPriceToEdit.toString()).setScale(2, BigDecimal.ROUND_HALF_UP), savePathList)
+        ]
+        render rs as JSON
+    }
 }

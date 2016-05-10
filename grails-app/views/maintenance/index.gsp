@@ -164,6 +164,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <form role="form" id="menuFormToEdit" action="updateMenu" method="post">
+                    <g:hiddenField name="menuId"/>
                     <div class="row">
                         <div class="col-sm-6 b-r">
                             <h3 class="m-t-none m-b">编辑菜单</h3>

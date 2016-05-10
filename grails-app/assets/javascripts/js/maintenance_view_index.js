@@ -5,7 +5,7 @@
 $(document).ready(function () {
 
     /**
-     * 表单验证
+     * 新建表单验证
      */
     var menuForm = $("#menuForm");
 
@@ -201,7 +201,7 @@ $(document).ready(function () {
                     $.each(data["savePathList"], function (name, value) {
                         savePathString = savePathString + value + ",";
                     });
-                    $("#savePathString").val(savePathString);
+                    $("#savePathStringToEdit").val(savePathString);
                     //不能继续上传，目前仅支持上传一个图片
                     if (myDropzone.getAcceptedFiles().length >= maxFiles) {
                         myDropzone.disable();
@@ -218,7 +218,6 @@ $(document).ready(function () {
                     var data = jQuery.parseJSON(this.xhr.responseText);
                     savePathString = savePathString + data["savePathList"][0] + ",";
                 });
-                savePathStringElm.val(savePathString);
                 if (myDropzone.getAcceptedFiles().length < maxFiles) {
                     myDropzone.enable();
                 }
@@ -233,13 +232,62 @@ $(document).ready(function () {
         var menuName = $(this).attr("menu_name");
         //菜价格
         var menuPrice = $(this).attr("menu_price");
-        //菜图片
-        var menuPic = $(this).attr("menu_pic");
+        //菜单展示图片访问地址
+        var menuPicShow = $(this).attr("menu_pic");
+        var menuPic = menuPicShow.substring(menuPicShow.lastIndexOf("/") + 1);
         //为编辑modal赋值
         var menuFormToEdit = $("#menuFormToEdit");
+        menuFormToEdit.find("#menuId").val(menuId);
         menuFormToEdit.find("#menuNameToEdit").val(menuName);
         menuFormToEdit.find("#menuPriceToEdit").val(menuPrice);
-        menuFormToEdit.find("#menuPicToShow").attr("src", menuPic);
+        menuFormToEdit.find("#menuPicToShow").attr("src", menuPicShow);
+        menuFormToEdit.find("#menuPicUrl").val(menuPic);
+    });
 
+    /**
+     * 编辑表单验证
+     */
+    var menuFormToEdit = $("#menuFormToEdit");
+
+    var editValidator = menuFormToEdit.validate({
+        rules: {
+            menuNameToEdit: {
+                required: true
+            },
+            menuPriceToEdit: {
+                required: true
+            }
+        },
+        messages: {
+            menuNameToEdit: {
+                required: "这菜总有个名字吧！"
+            },
+            menuPriceToEdit: {
+                number: "请输入一个有效的数字！",
+                min: "请填写一个有效价格！",
+                max: "请填写一个大家能够消费的价格！",
+                step: "仅支持到“分”的支付金额",
+                required: "不是说不能免费，但是你写个0我才好处理你说是不？"
+            }
+        }, submitHandler: function (form) {
+            $(form).ajaxSubmit({
+                success: function (data) {
+                    if (data["result"] == true) {
+                        swal({
+                            title: "已修改！",
+                            type: "success"
+                        }, function () {
+                            location.reload();
+                        });
+                    } else {
+                        swal({
+                            title: "修改失败！",
+                            type: "error"
+                        });
+                    }
+                }
+            });
+            return false;
+        }
     });
 });
