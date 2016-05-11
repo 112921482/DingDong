@@ -3,7 +3,7 @@
 
 <head>
     <meta name="layout" content="main"/>
-    <title>菜单维护</title>
+    <title><g:meta name="info.project.name"/>-维护菜单</title>
     <asset:stylesheet src="css/plugins/dropzone/basic.css"/>
     <asset:stylesheet src="css/plugins/dropzone/dropzone.css"/>
     <!-- Sweet Alert -->
@@ -21,7 +21,7 @@
 <body>
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>菜单维护</h2>
+        <h2>维护菜单</h2>
         <ol class="breadcrumb">
             <li>
                 <g:link controller="welcome">首页</g:link>
@@ -66,7 +66,7 @@
     </div>
 </div>
 
-<div class="wrapper wrapper-content animated fadeInRight">
+<div class="wrapper wrapper-content animated fadeIn">
     <div class="row">
         <g:each in="${mealMenuList}" var="mealMenu">
             <div class="col-md-3 menuPanel">
