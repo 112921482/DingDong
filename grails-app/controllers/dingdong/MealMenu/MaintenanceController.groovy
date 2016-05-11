@@ -87,10 +87,10 @@ class MaintenanceController {
      */
     def releaseMenu() {
         Boolean result = maintenanceService.releaseMenu(params)
-        if (!result) {
+        if (result) {
             flash.type = "success"
             flash.message = "发布成功！"
-            redirect(action: "")
+            redirect(controller: "release", action: "index")
         } else {
             flash.type = "error"
             flash.message = "发布失败！"
