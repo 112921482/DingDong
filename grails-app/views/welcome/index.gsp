@@ -3,7 +3,7 @@
 
 <head>
     <meta name="layout" content="main"/>
-    <title>首页</title>
+    <title><g:meta name="info.project.name"/>-首页</title>
 </head>
 
 <body>
