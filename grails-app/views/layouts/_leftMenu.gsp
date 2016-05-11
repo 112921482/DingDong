@@ -9,10 +9,12 @@
                 <a><i class="fa fa-diamond"></i> <span class="nav-label">送餐菜单</span> <span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
-                    <li class="${controllerName.equals("maintenance") ? 'active' : ''}"><g:link
-                            controller="maintenance">维护</g:link></li>
-                    <li class="${controllerName.equals("release") ? 'active' : ''}"><g:link
-                            controller="release">发布</g:link></li>
+                    <li class="${controllerName.equals("maintenance") && actionName.equals("index") ? 'active' : ''}">
+                        <g:link controller="maintenance">维护</g:link>
+                    </li>
+                    <li class="${controllerName.equals("release") && actionName.equals("index") ? 'active' : ''}">
+                        <g:link controller="release">发布</g:link>
+                    </li>
                 </ul>
             </li>
         </ul>
