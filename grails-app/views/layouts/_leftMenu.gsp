@@ -10,10 +10,10 @@
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li class="${controllerName.equals("maintenance") && actionName.equals("index") ? 'active' : ''}">
-                        <g:link controller="maintenance">维护</g:link>
+                        <g:link controller="maintenance">维护菜单</g:link>
                     </li>
                     <li class="${controllerName.equals("release") && actionName.equals("index") ? 'active' : ''}">
-                        <g:link controller="release">发布</g:link>
+                        <g:link controller="release">已发布菜单</g:link>
                     </li>
                 </ul>
             </li>
