@@ -34,7 +34,10 @@ class MaintenanceController {
      * @return
      */
     def saveMenu() {
-        def savePathList = params.savePathString.toString().split(",")
+        String[] savePathList = new String()
+        if (params.savePathString.length() > 0) {
+            savePathList = params.savePathString.toString().split(",")
+        }
         def rs = [
                 result: maintenanceService.saveMenu(params.menuName, new BigDecimal(params.menuPrice.toString()).setScale(2, BigDecimal.ROUND_HALF_UP), savePathList)
         ]
@@ -58,7 +61,7 @@ class MaintenanceController {
      * @param id 菜单主键
      */
     def updateMenu(Long menuId) {
-        def savePathList = []
+        String[] savePathList = new String()
         if (params.savePathStringToEdit.length() > 0) {
             savePathList = params.savePathStringToEdit.toString().split(",")
         }

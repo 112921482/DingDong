@@ -11,6 +11,8 @@ import java.math.RoundingMode
 @Transactional
 class MaintenanceService {
 
+    def dateService
+
     /**
      * 保存菜单
      * @param menuName 菜名
@@ -134,10 +136,16 @@ class MaintenanceService {
     }
 
     def releaseMenu(Map params) {
+        Short type = params.type ?: 0
         Boolean rs = true
-        ReleaseMenu releaseMenu = new ReleaseMenu(
-                type: 0
-        )
+        ReleaseMenu releaseMenu
+        //先判断今天同类型是否已经有菜单发布
+        releaseMenu = ReleaseMenu.findByTypeAndReleaseDateBetween(type, dateService.formatTodayStartTime(new Date()), dateService.formatTodayEndTime(new Date()))
+        if (!releaseMenu) {
+            releaseMenu = new ReleaseMenu(
+                    type: type
+            )
+        }
         if (!releaseMenu.validate()) {
             releaseMenu.errors.allErrors.each {
                 def msg = it.getDefaultMessage()
