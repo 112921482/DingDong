@@ -8,6 +8,9 @@
     <asset:stylesheet src="css/plugins/dropzone/dropzone.css"/>
     <!-- Sweet Alert -->
     <asset:stylesheet src="css/plugins/sweetalert/sweetalert.css"/>
+    <!-- CheckBox -->
+    <asset:stylesheet src="css/plugins/iCheck/custom.css"/>
+    <asset:stylesheet src="css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css"/>
     <style>
     .dropzone {
         min-height: 270px;
@@ -37,11 +40,28 @@
     </div>
 </div>
 
+
 <div class="wrapper wrapper-content" style="margin-bottom: -40px;">
+    <g:if test="${flash.type == 'error'}">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="alert alert-danger alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    ${flash.message}
+                </div>
+            </div>
+        </div>
+    </g:if>
     <div class="row">
+
         <div class="col-lg-1">
             <a data-toggle="modal" href="#modal-form" class="btn btn-block btn-primary compose-mail"
                id="createMenu">新建菜单</a>
+        </div>
+
+        <div class="col-lg-1">
+            <a class="btn btn-block btn-success compose-mail"
+               id="releaseMenu">发布菜单</a>
         </div>
     </div>
 </div>
@@ -49,7 +69,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <g:each in="${mealMenuList}" var="mealMenu">
-            <div class="col-md-3">
+            <div class="col-md-3 menuPanel">
                 <div class="ibox">
                     <div class="ibox-content product-box">
                         <g:if test="${mealMenu.getMealPics().size() > 0}">
@@ -75,7 +95,7 @@
                             <a href="javascript:void(0);" class="product-name">${mealMenu.getName()}</a>
 
                             <div class="m-t text-righ">
-                                <button class="btn btn-info updateBtn" type="button" data-toggle="modal"
+                                <button class="btn btn-sm btn-info updateBtn" type="button" data-toggle="modal"
                                         data-target="#modal-edit-form"
                                         menu_id="${mealMenu.getId()}"
                                         menu_name="${mealMenu.getName()}"
@@ -84,10 +104,19 @@
                                     <i class="fa fa-paste"></i>
                                     <span class="bold">编辑</span>
                                 </button>
-                                <button class="btn btn-warning deleteMenu" type="button" menu_id="${mealMenu.getId()}">
+                                <button class="btn btn-sm btn-warning deleteMenu" type="button"
+                                        menu_id="${mealMenu.getId()}">
                                     <i class="fa fa-warning"></i>
                                     <span class="bold">删除</span>
                                 </button>
+                                <label class="pull-right">
+                                    <div class="icheckbox_square-green" style="position: relative;">
+                                        <input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"
+                                               menu_id="${mealMenu.getId()}">
+                                        <ins class="iCheck-helper"
+                                             style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins>
+                                    </div> 选中我发布
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -217,6 +246,10 @@
     </div>
 </div>
 
+<div id="selectedMenuTemplate"></div>
+
+<g:render template="selectedMenuListTemplate" model="[selectedMenuList: []]"/>
+
 <!-- DROPZONE -->
 <asset:javascript src="plugins/dropzone/dropzone.js"/>
 
@@ -230,5 +263,8 @@
 
 <!-- 页面js -->
 <asset:javascript src="js/maintenance_view_index.js"/>
+
+<!-- iCheck -->
+<asset:javascript src="plugins/iCheck/icheck.min.js"/>
 </body>
 </html>

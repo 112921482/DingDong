@@ -2,17 +2,18 @@ package dingdong.meal
 
 class ReleaseMenu {
 
-    MealMenu mealMenu
-    Integer amount
+    Short type
     Date releaseDate
 
+    static hasMany = [releaseMenuDetails: ReleaseMenuDetail]
+
     static mapping = {
-        mealMenu comment: "meal_menu主键，订菜详情"
-        amount comment: "价格"
-        releaseDate comment: "图片地址"
+        type comment: "菜单种类（无限制-0，早餐-1，中餐-2，晚餐-3，宵夜-4）"
+        releaseDate comment: "发布时间"
     }
 
     static constraints = {
+        releaseDate nullable: true
     }
 
     def beforeInsert() {

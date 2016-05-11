@@ -1,10 +1,10 @@
 package dingdong.orderManagement
 
-import dingdong.meal.ReleaseMenu
+import dingdong.meal.ReleaseMenuDetail
 
 class TakeOutOrderDetail {
 
-    ReleaseMenu releaseMenu
+    ReleaseMenuDetail releaseMenuDetail
     Integer amount
     Integer status
     Date createTime

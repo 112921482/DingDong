@@ -5,6 +5,37 @@
 $(document).ready(function () {
 
     /**
+     * checkBox
+     */
+    $(".i-checks").iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green'
+    });
+
+    $("#releaseMenu").click(function () {
+        var checkBoxes = $(".i-checks");
+        var selectedMenuId = "";
+        $.each(checkBoxes, function (index, elm) {
+            if (elm.checked) {
+                selectedMenuId = selectedMenuId + $(elm).attr("menu_id") + ",";
+            }
+        });
+        if (selectedMenuId.length > 0) {
+            $("#selectedMenuTemplate").load(
+                "getSelectedMenu",
+                {selectedMenuId: selectedMenuId},
+                function () {
+                    $("#modal-release-form").modal("show");
+                });
+        } else {
+            swal({
+                title: "请选择要发布的菜！",
+                type: "warning"
+            });
+        }
+    });
+
+    /**
      * 新建表单验证
      */
     var menuForm = $("#menuForm");
@@ -249,7 +280,7 @@ $(document).ready(function () {
      */
     var menuFormToEdit = $("#menuFormToEdit");
 
-    var editValidator = menuFormToEdit.validate({
+    menuFormToEdit.validate({
         rules: {
             menuNameToEdit: {
                 required: true

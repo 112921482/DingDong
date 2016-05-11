@@ -2,7 +2,11 @@ package dingdong
 
 import dingdong.meal.MealMenu
 import dingdong.meal.MealPic
+import dingdong.meal.ReleaseMenu
+import dingdong.meal.ReleaseMenuDetail
 import grails.transaction.Transactional
+
+import java.math.RoundingMode
 
 @Transactional
 class MaintenanceService {
@@ -123,6 +127,52 @@ class MaintenanceService {
                             mealPic.save()
                         }
                     }
+                }
+            }
+        }
+        return rs
+    }
+
+    def releaseMenu(Map params) {
+        Boolean rs = true
+        ReleaseMenu releaseMenu = new ReleaseMenu(
+                type: 0
+        )
+        if (!releaseMenu.validate()) {
+            releaseMenu.errors.allErrors.each {
+                def msg = it.getDefaultMessage()
+                it.getArguments().eachWithIndex { arg, index ->
+                    msg = msg.replace("[{${index}}]", arg.toString())
+                }
+                log.error(msg)
+            }
+            rs = false
+        } else {
+            releaseMenu.save()
+            params.selectedMenuId.each { menuId ->
+                MealMenu tempMealMenu = MealMenu.get(menuId)
+                if (tempMealMenu) {
+                    ReleaseMenuDetail releaseMenuDetail = new ReleaseMenuDetail(
+                            mealMenu: tempMealMenu,
+                            amount: params.int("selectedMenu.${menuId}.sellAmount"),
+                            releaseMenu: releaseMenu,
+                            price: new BigDecimal(params["selectedMenu.${menuId}.sellPrice"].toString()).setScale(2, RoundingMode.HALF_UP)
+                    )
+                    if (!releaseMenuDetail.validate()) {
+                        releaseMenuDetail.errors.allErrors.each {
+                            def msg = it.getDefaultMessage()
+                            it.getArguments().eachWithIndex { arg, index ->
+                                msg = msg.replace("[{${index}}]", arg.toString())
+                            }
+                            log.error(msg)
+                        }
+                        rs = false
+                    } else {
+                        releaseMenuDetail.save()
+                    }
+                } else {
+                    log.error("ID为${menuId}的菜不存在！")
+                    rs = false
                 }
             }
         }

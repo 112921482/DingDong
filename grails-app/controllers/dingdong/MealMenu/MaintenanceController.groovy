@@ -58,7 +58,7 @@ class MaintenanceController {
      * @param id 菜单主键
      */
     def updateMenu(Long menuId) {
-        String[] savePathList = new String()[]
+        def savePathList = []
         if (params.savePathStringToEdit.length() > 0) {
             savePathList = params.savePathStringToEdit.toString().split(",")
         }
@@ -66,5 +66,35 @@ class MaintenanceController {
                 result: maintenanceService.updateMenu(menuId, params.menuNameToEdit, new BigDecimal(params.menuPriceToEdit.toString()).setScale(2, BigDecimal.ROUND_HALF_UP), savePathList)
         ]
         render rs as JSON
+    }
+
+    /**
+     * 获得选中菜品的详情，并且返回template
+     * @param selectedMenuId 选中的菜单ID
+     * @return
+     */
+    def getSelectedMenu(String selectedMenuId) {
+        def idList = []
+        selectedMenuId.split(",").each { selectedId ->
+            idList << selectedId
+        }
+        render(template: "/maintenance/selectedMenuListTemplate", model: [selectedMenuList: MealMenu.findAllByIdInList(idList)])
+    }
+
+    /**
+     * 发布菜单
+     * @return
+     */
+    def releaseMenu() {
+        Boolean result = maintenanceService.releaseMenu(params)
+        if (!result) {
+            flash.type = "success"
+            flash.message = "发布成功！"
+            redirect(action: "")
+        } else {
+            flash.type = "error"
+            flash.message = "发布失败！"
+            redirect(action: "index")
+        }
     }
 }
