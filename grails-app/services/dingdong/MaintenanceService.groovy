@@ -12,6 +12,7 @@ import java.math.RoundingMode
 class MaintenanceService {
 
     def dateService
+    def logService
 
     /**
      * 保存菜单
@@ -27,13 +28,7 @@ class MaintenanceService {
                 price: menuPrice
         )
         if (!mealMenu.validate()) {
-            mealMenu.errors.allErrors.each {
-                def msg = it.getDefaultMessage()
-                it.getArguments().eachWithIndex { arg, index ->
-                    msg = msg.replace("[{${index}}]", arg.toString())
-                }
-                log.error(msg)
-            }
+            logService.logErrorMsg(mealMenu.errors.allErrors)
             rs = false
         } else {
             mealMenu.save()
@@ -92,13 +87,7 @@ class MaintenanceService {
             mealMenu.setName(menuName)
             mealMenu.setPrice(menuPrice)
             if (!mealMenu.validate()) {
-                mealMenu.errors.allErrors.each {
-                    def msg = it.getDefaultMessage()
-                    it.getArguments().eachWithIndex { arg, index ->
-                        msg = msg.replace("[{${index}}]", arg.toString())
-                    }
-                    log.error(msg)
-                }
+                logService.logErrorMsg(mealMenu.errors.allErrors)
                 rs = false
             } else {
                 mealMenu.save()
@@ -145,13 +134,7 @@ class MaintenanceService {
             )
         }
         if (!releaseMenu.validate()) {
-            releaseMenu.errors.allErrors.each {
-                def msg = it.getDefaultMessage()
-                it.getArguments().eachWithIndex { arg, index ->
-                    msg = msg.replace("[{${index}}]", arg.toString())
-                }
-                log.error(msg)
-            }
+            logService.logErrorMsg(releaseMenu.errors.allErrors)
             rs = false
         } else {
             releaseMenu.save()

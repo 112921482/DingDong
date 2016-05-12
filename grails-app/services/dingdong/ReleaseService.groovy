@@ -6,6 +6,8 @@ import grails.transaction.Transactional
 @Transactional
 class ReleaseService {
 
+    def logService
+
     /**
      * 更新上架/下架状态
      * @param id realMenuDetail主键
@@ -19,13 +21,7 @@ class ReleaseService {
             if (releaseMenuDetail.validate()) {
                 releaseMenuDetail.save()
             } else {
-                releaseMenuDetail.errors.allErrors.each {
-                    def msg = it.getDefaultMessage()
-                    it.getArguments().eachWithIndex { arg, index ->
-                        msg = msg.replace("[{${index}}]", arg.toString())
-                    }
-                    log.error(msg)
-                }
+                logService.logErrorMsg(releaseMenuDetail.errors.allErrors)
                 rs = false
             }
         } else {
