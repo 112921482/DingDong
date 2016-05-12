@@ -116,6 +116,11 @@ $(document).ready(function () {
                         }, function () {
                             location.reload();
                         });
+                    } else {
+                        swal({
+                            title: "删除失败！",
+                            type: "error"
+                        });
                     }
                 }
             )
