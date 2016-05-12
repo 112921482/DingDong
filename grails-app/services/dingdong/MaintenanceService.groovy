@@ -83,13 +83,12 @@ class MaintenanceService {
         } else {
             mealMenu.setName(menuName)
             mealMenu.setPrice(menuPrice)
-            if (!mealMenu.validate()) {
+            if (!mealMenu.save()) {
                 mealMenu.errors.allErrors.each { mealMenuErr ->
                     log.error(mealMenuErr)
                 }
                 rs = false
             } else {
-                mealMenu.save()
                 if (savePathList.size() > 0) {
                     mealMenu.getMealPics().each { oldPic ->
                         def tempMealMenu = oldPic.getMealMenu()
@@ -102,13 +101,11 @@ class MaintenanceService {
                                 picUrl: savePath,
                                 mealMenu: mealMenu
                         )
-                        if (!mealPic.validate()) {
+                        if (!mealPic.save()) {
                             mealPic.errors.allErrors.each { mealPicErr ->
                                 log.error(mealPicErr)
                             }
                             rs = false
-                        } else {
-                            mealPic.save()
                         }
                     }
                 }
@@ -128,13 +125,12 @@ class MaintenanceService {
                     type: type
             )
         }
-        if (!releaseMenu.validate()) {
+        if (!releaseMenu.save()) {
             releaseMenu.errors.allErrors.each { releaseMenuErr ->
                 log.error(releaseMenuErr)
             }
             rs = false
         } else {
-            releaseMenu.save()
             params.selectedMenuId.each { menuId ->
                 MealMenu tempMealMenu = MealMenu.get(menuId)
                 if (tempMealMenu) {
@@ -145,13 +141,11 @@ class MaintenanceService {
                             price: new BigDecimal(params["selectedMenu.${menuId}.sellPrice"].toString()).setScale(2, RoundingMode.HALF_UP),
                             enable: true
                     )
-                    if (!releaseMenuDetail.validate()) {
+                    if (!releaseMenuDetail.save()) {
                         releaseMenuDetail.errors.allErrors.each { releaseMenuDetailErr ->
                             log.error(releaseMenuDetailErr)
                         }
                         rs = false
-                    } else {
-                        releaseMenuDetail.save()
                     }
                 } else {
                     log.error("ID为${menuId}的菜不存在！")

@@ -16,9 +16,7 @@ class ReleaseService {
         ReleaseMenuDetail releaseMenuDetail = ReleaseMenuDetail.get(id)
         if (releaseMenuDetail) {
             releaseMenuDetail.setEnable(enable)
-            if (releaseMenuDetail.validate()) {
-                releaseMenuDetail.save()
-            } else {
+            if (!releaseMenuDetail.save()) {
                 releaseMenuDetail.errors.allErrors.each { releaseMenuDetailErr ->
                     log.error(releaseMenuDetailErr)
                 }
