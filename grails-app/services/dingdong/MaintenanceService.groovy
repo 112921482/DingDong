@@ -12,7 +12,6 @@ import java.math.RoundingMode
 class MaintenanceService {
 
     def dateService
-    def logService
 
     /**
      * 保存菜单
@@ -28,7 +27,9 @@ class MaintenanceService {
                 price: menuPrice
         )
         if (!mealMenu.validate()) {
-            logService.logErrorMsg(mealMenu.errors.allErrors)
+            mealMenu.errors.allErrors.each { mealMenuErr ->
+                log.error(mealMenuErr)
+            }
             rs = false
         } else {
             mealMenu.save()
@@ -38,12 +39,8 @@ class MaintenanceService {
                         mealMenu: mealMenu
                 )
                 if (!mealPic.validate()) {
-                    mealPic.errors.allErrors.each {
-                        def msg = it.getDefaultMessage()
-                        it.getArguments().eachWithIndex { arg, index ->
-                            msg = msg.replace("[{${index}}]", arg.toString())
-                        }
-                        log.error(msg)
+                    mealPic.errors.allErrors.each { mealPicErr ->
+                        log.error(mealPicErr)
                     }
                     rs = false
                 } else {
@@ -87,7 +84,9 @@ class MaintenanceService {
             mealMenu.setName(menuName)
             mealMenu.setPrice(menuPrice)
             if (!mealMenu.validate()) {
-                logService.logErrorMsg(mealMenu.errors.allErrors)
+                mealMenu.errors.allErrors.each { mealMenuErr ->
+                    log.error(mealMenuErr)
+                }
                 rs = false
             } else {
                 mealMenu.save()
@@ -104,12 +103,8 @@ class MaintenanceService {
                                 mealMenu: mealMenu
                         )
                         if (!mealPic.validate()) {
-                            mealPic.errors.allErrors.each {
-                                def msg = it.getDefaultMessage()
-                                it.getArguments().eachWithIndex { arg, index ->
-                                    msg = msg.replace("[{${index}}]", arg.toString())
-                                }
-                                log.error(msg)
+                            mealPic.errors.allErrors.each { mealPicErr ->
+                                log.error(mealPicErr)
                             }
                             rs = false
                         } else {
@@ -134,7 +129,9 @@ class MaintenanceService {
             )
         }
         if (!releaseMenu.validate()) {
-            logService.logErrorMsg(releaseMenu.errors.allErrors)
+            releaseMenu.errors.allErrors.each { releaseMenuErr ->
+                log.error(releaseMenuErr)
+            }
             rs = false
         } else {
             releaseMenu.save()
@@ -149,12 +146,8 @@ class MaintenanceService {
                             enable: true
                     )
                     if (!releaseMenuDetail.validate()) {
-                        releaseMenuDetail.errors.allErrors.each {
-                            def msg = it.getDefaultMessage()
-                            it.getArguments().eachWithIndex { arg, index ->
-                                msg = msg.replace("[{${index}}]", arg.toString())
-                            }
-                            log.error(msg)
+                        releaseMenuDetail.errors.allErrors.each { releaseMenuDetailErr ->
+                            log.error(releaseMenuDetailErr)
                         }
                         rs = false
                     } else {
