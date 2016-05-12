@@ -259,8 +259,6 @@
 
 <div id="selectedMenuTemplate"></div>
 
-<g:render template="selectedMenuListTemplate" model="[selectedMenuList: []]"/>
-
 <!-- DROPZONE -->
 <asset:javascript src="plugins/dropzone/dropzone.js"/>
 
