@@ -273,7 +273,7 @@
 <asset:javascript src="plugins/validate/jquery.form.min.js"/>
 
 <!-- 页面js -->
-<asset:javascript src="js/maintenance_view_index.js"/>
+<asset:javascript src="js/maintenance/maintenance_view_index.js"/>
 
 <!-- iCheck -->
 <asset:javascript src="plugins/iCheck/icheck.min.js"/>
