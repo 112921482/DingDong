@@ -51,7 +51,6 @@ class MaintenanceService {
                         log.error(msg)
                     }
                     rs = false
-                    return false
                 } else {
                     mealPic.save()
                 }
@@ -124,7 +123,6 @@ class MaintenanceService {
                                 log.error(msg)
                             }
                             rs = false
-                            return false
                         } else {
                             mealPic.save()
                         }
