@@ -44,7 +44,7 @@
 <div class="wrapper wrapper-content" style="margin-bottom: -40px;">
     <g:if test="${flash.type == 'error'}">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <div class="alert alert-danger alert-dismissable">
                     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
                     ${flash.message}
@@ -52,6 +52,17 @@
             </div>
         </div>
     </g:if>
+    <g:elseif test="${flash.type == 'success'}">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="alert alert-success alert-dismissable">
+                    <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                    ${flash.message.toString()}<g:link controller='release' action='index'
+                                                       class='alert-link'>《已发布菜单》</g:link>
+                </div>
+            </div>
+        </div>
+    </g:elseif>
     <div class="row">
 
         <div class="col-lg-1">

@@ -92,12 +92,11 @@ class MaintenanceController {
         Boolean result = maintenanceService.releaseMenu(params)
         if (result) {
             flash.type = "success"
-            flash.message = "发布成功！"
-            redirect(controller: "release", action: "index")
+            flash.message = "发布成功，可在已发布菜单中查看！"
         } else {
             flash.type = "error"
             flash.message = "发布失败！"
-            redirect(action: "index")
         }
+        redirect(action: "index")
     }
 }
