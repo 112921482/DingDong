@@ -32,6 +32,11 @@ $(document).ready(function () {
                         }, function () {
                             location.reload();
                         });
+                    } else {
+                        swal({
+                            title: "操作失败！",
+                            type: "error"
+                        });
                     }
                 }
             )
@@ -62,6 +67,11 @@ $(document).ready(function () {
                             type: "success"
                         }, function () {
                             location.reload();
+                        });
+                    } else {
+                        swal({
+                            title: "操作失败！",
+                            type: "error"
                         });
                     }
                 }
