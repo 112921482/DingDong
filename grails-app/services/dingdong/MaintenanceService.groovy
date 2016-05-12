@@ -164,7 +164,8 @@ class MaintenanceService {
                             mealMenu: tempMealMenu,
                             amount: params.int("selectedMenu.${menuId}.sellAmount"),
                             releaseMenu: releaseMenu,
-                            price: new BigDecimal(params["selectedMenu.${menuId}.sellPrice"].toString()).setScale(2, RoundingMode.HALF_UP)
+                            price: new BigDecimal(params["selectedMenu.${menuId}.sellPrice"].toString()).setScale(2, RoundingMode.HALF_UP),
+                            enable: true
                     )
                     if (!releaseMenuDetail.validate()) {
                         releaseMenuDetail.errors.allErrors.each {
