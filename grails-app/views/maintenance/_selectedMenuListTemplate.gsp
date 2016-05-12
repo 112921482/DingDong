@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-body">
                 <form role="form" action="releaseMenu" method="post">
-                    <div class="wrapper wrapper-content animated fadeInRight">
+                    <div class="wrapper wrapper-content animated fadeIn">
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="ibox float-e-margins">
