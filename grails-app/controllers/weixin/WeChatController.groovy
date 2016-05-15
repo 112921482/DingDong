@@ -10,6 +10,9 @@ class WeChatController {
 
     def index() {
         def cache = weChatService.getWeChatToken()
+        if ((new Date()).getTime() - cache.get("getTime").toString() > 7000000) {
+            cache = weChatService.updateWeChatToken()
+        }
         render cache as JSON
     }
 }
