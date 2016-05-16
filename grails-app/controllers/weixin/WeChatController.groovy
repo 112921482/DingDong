@@ -8,9 +8,30 @@ class WeChatController {
 
     @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
     def index(String signature, String echostr, String timestamp, String nonce) {
-        if (weChatService.validateSignature(signature, timestamp, nonce)) {
-            render echostr
+        if (echostr) {
+            if (weChatService.validateSignature(signature, timestamp, nonce)) {
+                render echostr
+            }
         }
+        def xmlParse = new XmlParser()
+        def xmlData = xmlParse.parse(request.getInputStream())
+        Map<String, String> eventMap = new HashMap<String, String>()
+        xmlData.value().each {
+            eventMap.put(it.name(), it.text())
+        }
+        //关注事件
+        if (eventMap.get("Event").equals("subscribe")) {
+            weChatService.userSubscribe(eventMap)
+        }
+        //取消关注事件
+        if (eventMap.get("Event").equals("unsubscribe")) {
+            weChatService.userUnsubscribe(eventMap)
+        }
+        //点击跳转事件
+        if (eventMap.get("Event").equals("VIEW")) {
+            weChatService.userUnsubscribe(eventMap)
+        }
+        render ""
 //        def cache = weChatService.getWeChatToken()
 //        if (((new Date()).getTime() - cache.get("getTime")) > 7000000) {
 //            cache = weChatService.updateWeChatToken()
