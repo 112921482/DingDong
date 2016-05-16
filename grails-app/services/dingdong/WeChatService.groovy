@@ -11,6 +11,10 @@ class WeChatService {
 
     def grailsApplication
 
+    /**
+     * 获取微信access_token
+     * @return
+     */
     @Cacheable(value = "WeChatToken", key = "1000")
     Map getWeChatToken() {
         log.info((new Date()).toString() + "-从微信请求token")
@@ -24,6 +28,10 @@ class WeChatService {
         return dataMap
     }
 
+    /**
+     * 更新微信access_token
+     * @return
+     */
     @CachePut(value = "WeChatToken", key = "1000")
     Map updateWeChatToken() {
         log.info((new Date()).toString() + "-从微信更新token")
@@ -37,6 +45,13 @@ class WeChatService {
         return dataMap
     }
 
+    /**
+     * 验证微信signature
+     * @param signature
+     * @param timestamp
+     * @param nonce
+     * @return
+     */
     def validateSignature(String signature, String timestamp, String nonce) {
         log.info((new Date()).toString() + "-微信接口校验")
         String token = grailsApplication.config.weixin?.token
