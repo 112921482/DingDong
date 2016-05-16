@@ -129,3 +129,7 @@ grails:
 endpoints:
     jmx:
         unique-names: true
+weixin:
+    appId: wx316e3f8c8ec604d4
+    appSecret: 1f202faab2c9bc0b08bdb80ba5e9a6ca
+    token: dingdong0609
