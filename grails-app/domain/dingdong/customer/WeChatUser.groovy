@@ -2,14 +2,22 @@ package dingdong.customer
 
 class WeChatUser {
 
-    String name
+    String openId
+    String weChatUserName
+    Date createDate
 
     static mapping = {
-        name comment: "昵称"
+        id generator: "assigned", name: "openId"
+        weChatUserName comment: "昵称"
     }
 
     static hasMany = [deliveryAddresses: DeliveryAddress]
 
     static constraints = {
+        weChatUserName nullable: true
+    }
+
+    def beforeInsert() {
+        createDate = new Date()
     }
 }
