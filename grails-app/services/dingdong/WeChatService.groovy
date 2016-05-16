@@ -36,4 +36,14 @@ class WeChatService {
         dataMap.put("getTime", new Date().getTime())
         return dataMap
     }
+
+    def validateSignature(String signature, String timestamp, String nonce) {
+        String token = grailsApplication.config.weixin?.token
+        def paramsArray = [token, timestamp, nonce].sort()
+        StringBuilder sb = new StringBuilder()
+        paramsArray.each {
+            sb.append(it)
+        }
+        return sb.encodeAsSHA1().equals(signature)
+    }
 }

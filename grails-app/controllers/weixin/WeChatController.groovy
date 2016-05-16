@@ -8,11 +8,16 @@ class WeChatController {
 
     def weChatService
 
-    def index() {
-        def cache = weChatService.getWeChatToken()
-        if (((new Date()).getTime() - cache.get("getTime")) > 7000000) {
-            cache = weChatService.updateWeChatToken()
+    def index(String signature, String echostr, String timestamp, String nonce) {
+        if (weChatService.validateSignature(signature, timestamp, nonce)) {
+            render echostr
         }
-        render cache as JSON
+//        def cache = weChatService.getWeChatToken()
+//        if (((new Date()).getTime() - cache.get("getTime")) > 7000000) {
+//            cache = weChatService.updateWeChatToken()
+//        }
+//        render "${grailsApplication.config.weixin?.token}"
     }
+
+
 }
