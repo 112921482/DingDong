@@ -1,14 +1,13 @@
 import grails.util.BuildSettings
-import grails.util.Environment
 
 // See http://logback.qos.ch/manual/groovy.html for details on configuration
 // 控制台日志级别控制
+// 日志级别 TRACE < DEBUG < INFO < WARN < ERROR，默认只打印ERROR
 appender('STDOUT', ConsoleAppender) {
     encoder(PatternLayoutEncoder) {
         pattern = "%level %logger - %msg%n"
     }
 }
-// 日志级别 TRACE < DEBUG < INFO < WARN < ERROR，默认只打印ERROR
 root(INFO, ['STDOUT'])
 
 // 日志输出控制

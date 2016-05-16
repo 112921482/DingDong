@@ -13,7 +13,7 @@ class WeChatService {
 
     @Cacheable(value = "WeChatToken", key = "1000")
     Map getWeChatToken() {
-        println("从微信请求token")
+        log.info((new Date()).toString() + "-从微信请求token")
         def client = new JerseyHttpClientFactory().createHttpClient()
         def request = new HttpRequest()
                 .setUri("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${grailsApplication.config.weixin?.appId}&secret=${grailsApplication.config.weixin?.appSecret}")
@@ -26,7 +26,7 @@ class WeChatService {
 
     @CachePut(value = "WeChatToken", key = "1000")
     Map updateWeChatToken() {
-        println("从微信更新token")
+        log.info((new Date()).toString() + "-从微信更新token")
         def client = new JerseyHttpClientFactory().createHttpClient()
         def request = new HttpRequest()
                 .setUri("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${grailsApplication.config.weixin?.appId}&secret=${grailsApplication.config.weixin?.appSecret}")
@@ -38,6 +38,7 @@ class WeChatService {
     }
 
     def validateSignature(String signature, String timestamp, String nonce) {
+        log.info((new Date()).toString() + "-微信接口校验")
         String token = grailsApplication.config.weixin?.token
         def paramsArray = [token, timestamp, nonce].sort()
         StringBuilder sb = new StringBuilder()
