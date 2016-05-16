@@ -15,16 +15,20 @@ class WeChatService {
      * 获取微信access_token
      * @return
      */
-    @Cacheable(value = "WeChatToken", key = "1000")
+    @Cacheable(value = "WeChatToken", key = "1000", condition = "#getTime > 0")
     Map getWeChatToken() {
         log.info((new Date()).toString() + "-从微信请求token")
         def client = new JerseyHttpClientFactory().createHttpClient()
         def request = new HttpRequest()
                 .setUri("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${grailsApplication.config.weixin?.appId}&secret=${grailsApplication.config.weixin?.appSecret}")
-                .setAccept('application/json')
+                .setAccept("application/json")
         def response = client.get(request)
         def dataMap = response.getEntity(Map)
-        dataMap.put("getTime", new Date().getTime())
+        if (dataMap.get("errcode")) {
+            dataMap.put("getTime", 0)
+        } else {
+            dataMap.put("getTime", new Date().getTime())
+        }
         return dataMap
     }
 
@@ -61,5 +65,26 @@ class WeChatService {
             sb.append(it)
         }
         return sb.encodeAsSHA1().equals(signature)
+    }
+
+    /**
+     * 自定义菜单
+     */
+    def diyMenu() {
+        log.info((new Date()).toString() + "-修改微信自定义菜单")
+        def client = new JerseyHttpClientFactory().createHttpClient()
+        def inputStream = new FileInputStream(new File("${grailsApplication.config.picSavePath}/WeChatMenu.txt"))
+        def response = client.post(inputStream) {
+            uri = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=${getWeChatToken().get("access_token")}"
+            contentType = "application/json"
+        }
+        def dataMap = response.getEntity(Map)
+        if (dataMap.get("errcode") == 0) {
+            log.info((new Date()).toString() + "-修改微信自定义菜单成功！")
+            return true
+        } else {
+            log.info((new Date()).toString() + "-修改微信自定义菜单失败！")
+            false
+        }
     }
 }
