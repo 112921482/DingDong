@@ -65,13 +65,10 @@
     </g:elseif>
     <div class="row">
 
-        <div class="col-lg-1">
-            <a data-toggle="modal" href="#modal-form" class="btn btn-block btn-primary compose-mail"
+        <div class="col-lg-3">
+            <a data-toggle="modal" href="#modal-form" class="btn btn-w-m btn-primary"
                id="createMenu">新建菜单</a>
-        </div>
-
-        <div class="col-lg-1">
-            <a class="btn btn-block btn-success compose-mail"
+            <a class="btn btn-w-m btn-success"
                id="releaseMenu">发布菜单</a>
         </div>
     </div>
