@@ -15,6 +15,7 @@ class WeChatUser {
 
     static constraints = {
         weChatUserName nullable: true
+        createDate nullable: true
     }
 
     def beforeInsert() {

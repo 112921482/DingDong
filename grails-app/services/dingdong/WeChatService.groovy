@@ -2,6 +2,7 @@ package dingdong
 
 import com.budjb.httprequests.HttpRequest
 import com.budjb.httprequests.jersey1.JerseyHttpClientFactory
+import dingdong.customer.WeChatUser
 import grails.plugin.cache.CachePut
 import grails.plugin.cache.Cacheable
 import grails.transaction.Transactional
@@ -85,6 +86,28 @@ class WeChatService {
         } else {
             log.info((new Date()).toString() + "-修改微信自定义菜单失败！")
             false
+        }
+    }
+
+    /**
+     * 用户关注事件
+     * @param eventMap
+     */
+    def userSubscribe(Map<String, String> eventMap) {
+        WeChatUser weChatUser = new WeChatUser()
+        weChatUser.setOpenId(eventMap.get("FromUserName"))
+        weChatUser.save()
+    }
+
+    /**
+     * 用户取消关注事件
+     * @param eventMap
+     * @return
+     */
+    def userUnsubscribe(Map<String, String> eventMap) {
+        WeChatUser weChatUser = WeChatUser.findByOpenId(eventMap.get("FromUserName"))
+        if (weChatUser) {
+            weChatUser.delete()
         }
     }
 }
