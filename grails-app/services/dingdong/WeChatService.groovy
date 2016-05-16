@@ -7,10 +7,36 @@ import grails.plugin.cache.CachePut
 import grails.plugin.cache.Cacheable
 import grails.transaction.Transactional
 
+import javax.servlet.http.HttpServletResponse
+
 @Transactional
 class WeChatService {
 
     def grailsApplication
+
+    /**
+     * 根据授权code，获取查询用户信息使用的access_token
+     */
+    @Cacheable(value = "UserInfoToken", key = "1001", condition = "#getTime > 0")
+    def getUserInfoAccessToken(String code) {
+        log.info((new Date()).toString() + "-根据授权code从微信请求token以获取用户信息")
+        def client = new JerseyHttpClientFactory().createHttpClient()
+        def request = new HttpRequest()
+                .setUri("https://api.weixin.qq.com/sns/oauth2/access_token?appid=${grailsApplication.config.weixin?.appId}&secret=${grailsApplication.config.weixin?.appSecret}&code=${code}&grant_type=authorization_code")
+                .setAccept("application/json")
+        def response = client.get(request).setContentType("application/json")
+        def dataMap = response.getEntity(Map)
+        if (dataMap.get("errcode")) {
+            dataMap.put("getTime", 0)
+        } else {
+            dataMap.put("getTime", new Date().getTime())
+        }
+        return dataMap
+    }
+
+    def getUserInfo(String code) {
+        def dataMap = getUserInfoAccessToken(code)
+    }
 
     /**
      * 获取微信access_token
