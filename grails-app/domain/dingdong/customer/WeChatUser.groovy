@@ -7,7 +7,7 @@ class WeChatUser {
     Date createDate
 
     static mapping = {
-        id generator: "assigned", name: "openId"
+        id generator: "assigned", name: "openId", comment: "用户的标识，对当前公众号唯一"
         weChatUserName comment: "昵称"
     }
 
