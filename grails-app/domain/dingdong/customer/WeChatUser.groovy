@@ -10,11 +10,12 @@ class WeChatUser {
     Date createDate
 
     String country
+    String city
     String headimgurl
     String nickname
     Integer sex
 
-    static transients = ["country", "headimgurl", "nickname", "sex"]
+    static transients = ["country", "city", "headimgurl", "nickname", "sex"]
 
     static mapping = {
         id generator: "assigned", name: "openId", comment: "用户的标识，对当前公众号唯一"

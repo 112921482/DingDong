@@ -86,6 +86,7 @@ class WeChatService {
         def result = promise.get()
 
         weChatUser.setCountry(result.get("country").toString())
+        weChatUser.setCity(result.get("city").toString())
         weChatUser.setNickname(result.get("nickname").toString())
         weChatUser.setHeadimgurl(result.get("headimgurl").toString())
         weChatUser.setSex(Integer.parseInt(result.get("sex").toString()))
