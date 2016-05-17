@@ -103,19 +103,26 @@ class WeChatService {
      */
     @Cacheable(value = "WeChatToken", key = "1000", condition = "#getTime > 0")
     Map getWeChatToken() {
-        log.info((new Date()).toString() + "-从微信请求token")
-        def client = new JerseyHttpClientFactory().createHttpClient()
-        def request = new HttpRequest()
-                .setUri("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${grailsApplication.config.weixin?.appId}&secret=${grailsApplication.config.weixin?.appSecret}")
-                .setAccept("application/json")
-        def response = client.get(request)
-        def dataMap = response.getEntity(Map)
-        if (dataMap.get("errcode")) {
-            dataMap.put("getTime", 0)
-        } else {
-            dataMap.put("getTime", new Date().getTime())
+        def promise = task {
+            log.info((new Date()).toString() + "-从微信请求token")
+            1..3.each {
+                def client = new JerseyHttpClientFactory().createHttpClient()
+                def request = new HttpRequest()
+                        .setUri("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${grailsApplication.config.weixin?.appId}&secret=${grailsApplication.config.weixin?.appSecret}")
+                        .setAccept("application/json")
+                def response = client.get(request)
+                def dataMap = response.getEntity(Map)
+                if (dataMap.get("errcode")) {
+                    dataMap.put("getTime", 0)
+                } else {
+                    dataMap.put("getTime", new Date().getTime())
+                    return false
+                }
+                return dataMap
+            }
         }
-        return dataMap
+        Map result = (Map) promise.get()
+        return result
     }
 
     /**
@@ -124,15 +131,26 @@ class WeChatService {
      */
     @CachePut(value = "WeChatToken", key = "1000")
     Map updateWeChatToken() {
-        log.info((new Date()).toString() + "-从微信更新token")
-        def client = new JerseyHttpClientFactory().createHttpClient()
-        def request = new HttpRequest()
-                .setUri("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${grailsApplication.config.weixin?.appId}&secret=${grailsApplication.config.weixin?.appSecret}")
-                .setAccept('application/json')
-        def response = client.get(request)
-        def dataMap = response.getEntity(Map)
-        dataMap.put("getTime", new Date().getTime())
-        return dataMap
+        def promise = task {
+            log.info((new Date()).toString() + "-从微信更新token")
+            1..3.each {
+                def client = new JerseyHttpClientFactory().createHttpClient()
+                def request = new HttpRequest()
+                        .setUri("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${grailsApplication.config.weixin?.appId}&secret=${grailsApplication.config.weixin?.appSecret}")
+                        .setAccept('application/json')
+                def response = client.get(request)
+                def dataMap = response.getEntity(Map)
+                if (dataMap.get("errcode")) {
+                    dataMap.put("getTime", 0)
+                } else {
+                    dataMap.put("getTime", new Date().getTime())
+                    return false
+                }
+                return dataMap
+            }
+        }
+        Map result = (Map) promise.get()
+        return result
     }
 
     /**
@@ -179,8 +197,13 @@ class WeChatService {
      * @param eventMap
      */
     def userSubscribe(Map<String, String> eventMap) {
-        WeChatUser weChatUser = new WeChatUser()
-        weChatUser.setOpenId(eventMap.get("FromUserName"))
+        String openId = eventMap.get("FromUserName")
+        WeChatUser weChatUser = WeChatUser.findByOpenId(openId)
+        if (!weChatUser) {
+            weChatUser = new WeChatUser()
+            weChatUser.setOpenId(eventMap.get("FromUserName"))
+        }
+        weChatUser.setSubscribe((short) 1)
         weChatUser.save()
     }
 
@@ -191,8 +214,11 @@ class WeChatService {
      */
     def userUnsubscribe(Map<String, String> eventMap) {
         WeChatUser weChatUser = WeChatUser.findByOpenId(eventMap.get("FromUserName"))
-        if (weChatUser) {
-            weChatUser.delete()
+        if (!weChatUser) {
+            weChatUser = new WeChatUser()
+            weChatUser.setOpenId(eventMap.get("FromUserName"))
         }
+        weChatUser.setSubscribe((short) 0)
+        weChatUser.save()
     }
 }
