@@ -8,6 +8,7 @@ class WeChatController {
 
     @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
     def index(String signature, String echostr, String timestamp, String nonce) {
+        log.info("微信事件推送")
         if (echostr) {
             if (weChatService.validateSignature(signature, timestamp, nonce)) {
                 render echostr
@@ -29,7 +30,7 @@ class WeChatController {
         }
         //点击跳转事件
         if (eventMap.get("Event").equals("VIEW")) {
-            weChatService.userUnsubscribe(eventMap)
+            log.info("跳转链接")
         }
         render ""
 //        def cache = weChatService.getWeChatToken()
