@@ -29,9 +29,9 @@ class WeChatController {
             weChatService.userUnsubscribe(eventMap)
         }
         //点击跳转事件
-        if (eventMap.get("Event").equals("VIEW")) {
-            log.info("跳转链接")
-        }
+//        if (eventMap.get("Event").equals("VIEW")) {
+//            session.openId = eventMap.get("openid")
+//        }
         render ""
 //        def cache = weChatService.getWeChatToken()
 //        if (((new Date()).getTime() - cache.get("getTime")) > 7000000) {
