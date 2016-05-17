@@ -1,14 +1,19 @@
 package weixin
 
-import dingdong.customer.WeChatUser
-import grails.converters.JSON
+import dingdong.meal.ReleaseMenu
 import grails.plugin.springsecurity.annotation.Secured
 
 @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
 class WeChatMarketController {
 
+    def dateService
+
+    /**
+     * 订餐列表页
+     * @return
+     */
     def index() {
-        WeChatUser weChatUser = WeChatUser.findByOpenId(session.openId.toString())
-        render weChatUser as JSON
+        List<ReleaseMenu> releaseMenuList = ReleaseMenu.findAllByReleaseDateBetween(dateService.formatTodayStartTime(new Date()), dateService.formatTodayEndTime(new Date()))
+        [releaseMenuList: releaseMenuList]
     }
 }
