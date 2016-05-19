@@ -1,6 +1,6 @@
 package weixin
 
-import dingdong.meal.ReleaseMenu
+import dingdong.meal.ReleaseMenuDetail
 import grails.plugin.springsecurity.annotation.Secured
 
 @Secured("IS_AUTHENTICATED_ANONYMOUSLY")
@@ -13,7 +13,13 @@ class WeChatMarketController {
      * @return
      */
     def index() {
-        List<ReleaseMenu> releaseMenuList = ReleaseMenu.findAllByReleaseDateBetween(dateService.formatTodayStartTime(new Date()), dateService.formatTodayEndTime(new Date()))
-        [releaseMenuList: releaseMenuList]
+        List<ReleaseMenuDetail> releaseMenuDetailList = ReleaseMenuDetail.createCriteria().list() {
+            releaseMenu {
+                between("releaseDate", dateService.formatTodayStartTime(new Date()), dateService.formatTodayEndTime(new Date()))
+            }
+            eq("enable", true)
+            order("id", "desc")
+        }
+        [releaseMenuDetailList: releaseMenuDetailList]
     }
 }
