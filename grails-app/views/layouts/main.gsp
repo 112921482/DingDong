@@ -7,7 +7,7 @@
     <title><g:layoutTitle default="${grailsApplication.config.info?.project?.name}"/></title>
 
     <asset:stylesheet src="css/bootstrap.min.css"/>
-    <asset:stylesheet src="font-awesome/css/font-awesome.css"/>
+    <asset:stylesheet src="font-awesome/css/font-awesome.min.css"/>
 
     <asset:stylesheet src="css/animate.css"/>
     <asset:stylesheet src="css/style.css"/>
