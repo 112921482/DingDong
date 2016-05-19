@@ -1,3 +1,27 @@
 .w_100 {
     width: 100% !important;
 }
+
+.f_l {
+    float: left !important;
+}
+
+.f_r {
+    float: right !important;
+}
+
+.order_bar {
+
+    height: 35px !important;
+    line-height: 35px !important;
+    padding: 0 10px !important;
+}
+
+.order_btn {
+    height: 33px;
+    width: 33px;
+}
+
+.m_r_2 {
+    margin-right: 3%;
+}
