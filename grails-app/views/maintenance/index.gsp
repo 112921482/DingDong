@@ -77,7 +77,7 @@
 <div class="wrapper wrapper-content animated fadeIn">
     <div class="row">
         <g:each in="${mealMenuList}" var="mealMenu">
-            <div class="col-md-3 menuPanel">
+            <div class="col-md-4 menuPanel">
                 <div class="ibox">
                     <div class="ibox-content product-box">
                         <g:if test="${mealMenu.getMealPics().size() > 0}">
