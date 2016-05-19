@@ -42,23 +42,6 @@
                                 <li class="weui_media_info_meta weui_media_info_meta_extra">其它信息</li>
                             </ul>
                         </div>
-
-                    %{--<a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">--}%
-                    %{--<img class="weui_media_appmsg_thumb"--}%
-                    %{--src="${webRequest.getBaseUrl().replace("8090", "8080") + "/images/" + releaseMenuDetails.getMealMenu().getMealPics().getAt(0).getPicUrl()}"--}%
-                    %{--alt="">--}%
-                    %{--<div class="weui_media_hd">--}%
-                    %{--<img class="weui_media_appmsg_thumb"--}%
-                    %{--src="${webRequest.getBaseUrl().replace("8090", "8080") + "/images/" + releaseMenuDetails.getMealMenu().getMealPics().getAt(0).getPicUrl()}"--}%
-                    %{--alt="">--}%
-                    %{--</div>--}%
-
-                    %{--<div class="weui_media_bd">--}%
-                    %{--<h4 class="weui_media_title">${releaseMenuDetails.getMealMenu().getName()}</h4>--}%
-
-                    %{--<p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>--}%
-                    %{--</div>--}%
-                    %{--</a>--}%
                     </g:each>
                 </g:each>
             </div>
