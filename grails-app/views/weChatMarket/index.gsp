@@ -6,6 +6,7 @@
     <title>WeUI</title>
     <asset:stylesheet src="wechat/weui.min.css"/>
     <asset:stylesheet src="wechat/example.css"/>
+    <asset:stylesheet src="font-awesome/css/font-awesome.min.css"/>
     <style>
     .weui_media_box {
         padding: 0 !important;
@@ -33,13 +34,24 @@
                         </a>
 
                         <div class="weui_media_box weui_media_text">
-                            <h4 class="weui_media_title">标题一</h4>
+                            <h4 class="weui_media_title w_50 f_l">标题一</h4>
 
-                            <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+                            <div class="f_r">
+                                <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                                <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_primary">
+                                    <i class="fa fa-minus"></i>
+                                </a>
+                            </div>
+
+                            <p class="weui_media_desc w_100">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
                             <ul class="weui_media_info">
                                 <li class="weui_media_info_meta">文字来源</li>
                                 <li class="weui_media_info_meta">时间</li>
-                                <li class="weui_media_info_meta weui_media_info_meta_extra">其它信息</li>
+                                <li class="weui_media_info_meta weui_media_info_meta_extra">
+
+                                </li>
                             </ul>
                         </div>
                     </g:each>
