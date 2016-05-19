@@ -22,35 +22,33 @@
     </div>
 
     <div class="bd">
-        <g:each in="${releaseMenuList}" var="releaseMenu">
-            <g:each in="${releaseMenu.getReleaseMenuDetails()}" var="releaseMenuDetail">
-                <g:if test="${releaseMenuDetail.getEnable()}">
-                    <div class="weui_panel">
-                        <div class="weui_panel_bd">
-                            <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
-                                <asset:image src="loading.gif" class="w_100"/>
-                            </a>
+        <g:each in="${releaseMenuDetailList}" var="releaseMenuDetail">
+            <g:if test="${releaseMenuDetail.getEnable()}">
+                <div class="weui_panel">
+                    <div class="weui_panel_bd">
+                        <a href="javascript:void(0);" class="weui_media_box weui_media_appmsg">
+                            <asset:image src="loading.gif" class="w_100"/>
+                        </a>
+                    </div>
+
+                    <div class="weui_panel_hd order_bar">
+                        <div class="f_l">
+                            ${releaseMenuDetail.getMealMenu().getName()}
                         </div>
 
-                        <div class="weui_panel_hd order_bar">
-                            <div class="f_l">
-                                ${releaseMenuDetail.getMealMenu().getName()}
-                            </div>
 
+                        <div class="f_r">
+                            <button class="order_btn">+</button>
+                            <span>0</span>
+                            <button class="order_btn">-</button>
+                        </div>
 
-                            <div class="f_r">
-                                <button class="order_btn">+</button>
-                                <span>0</span>
-                                <button class="order_btn">-</button>
-                            </div>
-
-                            <div class="f_r m_r_2">
-                                ¥${releaseMenuDetail.getPrice()}元/份
-                            </div>
+                        <div class="f_r m_r_2">
+                            ¥${releaseMenuDetail.getPrice()}元/份
                         </div>
                     </div>
-                </g:if>
-            </g:each>
+                </div>
+            </g:if>
         </g:each>
     </div>
 </div>
