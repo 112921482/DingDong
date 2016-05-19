@@ -45,7 +45,7 @@
                             </div>
 
                             <div class="f_r m_r_2">
-                                ￥${releaseMenuDetail.getPrice()}元/份
+                                ¥${releaseMenuDetail.getPrice()}元/份
                             </div>
                         </div>
                     </div>
