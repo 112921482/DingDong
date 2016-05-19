@@ -25,3 +25,9 @@
 .m_r_2 {
     margin-right: 3%;
 }
+
+.footer_submit_bar {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}

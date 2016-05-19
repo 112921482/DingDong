@@ -51,6 +51,17 @@
             </g:if>
         </g:each>
     </div>
+
+    <div class="footer_submit_bar">
+        <div>
+
+        </div>
+
+        <div style="width: 30%">
+            <a href="javascript:;" class="weui_btn weui_btn_primary">按钮</a>
+        </div>
+
+    </div>
 </div>
 </body>
 </html>
