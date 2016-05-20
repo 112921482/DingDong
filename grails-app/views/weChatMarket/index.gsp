@@ -54,7 +54,7 @@
 
     <div class="footer_submit_bar">
         <div class="footer_bar_msg">
-            <div class="f_l">已点<span id="totalAmount">0</span>份</div>
+            <div class="f_l">已点<span id="totalAmount">0</span>份，</div>
 
             <div class="f_l">共<span id="totalCost">0</span>元</div>
         </div>
