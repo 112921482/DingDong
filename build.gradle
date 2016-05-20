@@ -9,7 +9,7 @@ buildscript {
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:2.8.2"
-        classpath "org.grails.plugins:hibernate4:5.0.5"
+        classpath "org.grails.plugins:hibernate4:5.0.6"
     }
 }
 
@@ -56,11 +56,11 @@ dependencies {
     //spring-security-core插件
     compile 'org.grails.plugins:spring-security-core:3.0.4'
     console "org.grails:grails-console"
-    profile "org.grails.profiles:web:3.1.6"
+    profile "org.grails.profiles:web:3.1.7"
     runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
     //runtime "com.h2database:h2"
     //mysql驱动
-    runtime 'mysql:mysql-connector-java:5.1.38'
+    runtime 'mysql:mysql-connector-java:5.1.39'
     testCompile "org.grails:grails-plugin-testing"
     testCompile "org.grails.plugins:geb"
     testRuntime "org.seleniumhq.selenium:selenium-htmlunit-driver:2.47.1"
