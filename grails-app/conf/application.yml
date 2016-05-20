@@ -20,7 +20,7 @@ environments:
 #            gorm:
 #                failOnError: true
         picSavePath: E:\images\
-        picShowPath: http://localhost:8080/images/
+        picShowPath: http://localhost:8081/uploadImages/
         dataSource:
             dbCreate: create-drop
             url: jdbc:mysql://localhost:3306/dingdong?useUnicode=true&characterEncoding=utf-8&useSSL=false
