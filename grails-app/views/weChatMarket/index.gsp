@@ -15,7 +15,7 @@
     </style>
 </head>
 
-<body ontouchstart="">
+<body ontouchstart="" class="m_b_50">
 <div class="container" id="container">
     <div class="hd">
         <h1 class="page_title">${grailsApplication.config.info.project.name}</h1>
@@ -31,7 +31,7 @@
                         </a>
                     </div>
 
-                    <div class="weui_panel_hd order_bar">
+                    <div class="weui_panel_hd order_bar l_0">
                         <div class="f_l">
                             ${releaseMenuDetail.getMealMenu().getName()}
                         </div>

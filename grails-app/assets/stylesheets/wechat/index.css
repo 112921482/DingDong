@@ -12,8 +12,8 @@
 
 .order_bar {
 
-    height: 35px !important;
-    line-height: 35px !important;
+    height: 36px !important;
+    line-height: 36px !important;
     padding: 0 10px !important;
 }
 
@@ -30,4 +30,12 @@
     position: fixed;
     width: 100%;
     bottom: 0;
+}
+
+.m_b_50 {
+    margin-bottom: 50px;
+}
+
+.l_0:after {
+    left: 0 !important;
 }
