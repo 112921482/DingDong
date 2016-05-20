@@ -53,12 +53,13 @@
     </div>
 
     <div class="footer_submit_bar">
-        <div>
-
+        <div class="f_l footer_bar_msg">
+            已点<span id="totalAmount">0</span>份
+        共<span id="totalCost">0</span>元
         </div>
 
-        <div style="width: 30%">
-            <a href="javascript:;" class="weui_btn weui_btn_primary">按钮</a>
+        <div class="f_r">
+            <a href="javascript:;" class="weui_btn weui_btn_primary b_d_0">马上下单</a>
         </div>
 
     </div>
