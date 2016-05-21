@@ -15,13 +15,13 @@
     </style>
 </head>
 
-<body ontouchstart="" class="m_b_50">
+<body ontouchstart="">
 <div class="container" id="container">
     <div class="hd">
         <h1 class="page_title">${grailsApplication.config.info.project.name}</h1>
     </div>
 
-    <div class="bd">
+    <div class="bd m_b_50">
         <g:each in="${releaseMenuDetailList}" var="releaseMenuDetail">
             <g:if test="${releaseMenuDetail.getEnable()}">
                 <div class="weui_panel">
@@ -38,9 +38,9 @@
 
 
                         <div class="f_r">
-                            <button class="order_btn">+</button>
+                            <button class="order_btn add">+</button>
                             <span>0</span>
-                            <button class="order_btn">-</button>
+                            <button class="order_btn minus">-</button>
                         </div>
 
                         <div class="f_r m_r_2">
@@ -65,5 +65,10 @@
 
     </div>
 </div>
+
+<!-- jquery2.2.3 -->
+<asset:javascript src="jquery-2.2.4.min.js"/>
+<!-- 页面js -->
+<asset:javascript src="js/weChat/wechat_menu_list_view.js"/>
 </body>
 </html>
