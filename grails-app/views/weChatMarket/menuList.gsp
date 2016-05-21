@@ -6,7 +6,7 @@
     <title>WeUI</title>
     <asset:stylesheet src="wechat/weui.min.css"/>
     <asset:stylesheet src="wechat/example.css"/>
-    <asset:stylesheet src="wechat/index.css"/>
+    <asset:stylesheet src="wechat/menu_list_view.css"/>
     <asset:stylesheet src="font-awesome/css/font-awesome.min.css"/>
     <style>
     .weui_media_box {
