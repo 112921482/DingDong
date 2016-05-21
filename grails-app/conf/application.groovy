@@ -1,7 +1,7 @@
 // Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'dingdong.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'dingdong.UserRole'
-grails.plugin.springsecurity.authority.className = 'dingdong.Role'
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'dingdong.security.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'dingdong.security.UserRole'
+grails.plugin.springsecurity.authority.className = 'dingdong.security.Role'
 //登出可以使用get方式
 grails.plugin.springsecurity.logout.postOnly = false
 //设置默认登陆成功页面
@@ -28,4 +28,3 @@ grails.plugin.springsecurity.filterChain.chainMap = [
         [pattern: '/**/favicon.ico', filters: 'none'],
         [pattern: '/**', filters: 'JOINED_FILTERS']
 ]
-
