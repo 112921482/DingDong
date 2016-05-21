@@ -29,7 +29,7 @@
 </div>
 
 <!-- Mainly scripts -->
-<asset:javascript src="jquery-2.2.3.min.js"/>
+<asset:javascript src="jquery-2.2.4.min.js"/>
 <asset:javascript src="bootstrap.min.js"/>
 
 </body>

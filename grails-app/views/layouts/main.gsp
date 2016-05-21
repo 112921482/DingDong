@@ -23,7 +23,7 @@
     </style>
 
     <!-- Mainly scripts -->
-    <asset:javascript src="jquery-2.2.3.min.js"/>
+    <asset:javascript src="jquery-2.2.4.min.js"/>
     <asset:javascript src="bootstrap.min.js"/>
     <asset:javascript src="plugins/metisMenu/jquery.metisMenu.js"/>
     <asset:javascript src="plugins/slimscroll/jquery.slimscroll.min.js"/>
