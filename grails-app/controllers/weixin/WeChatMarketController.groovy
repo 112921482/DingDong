@@ -12,7 +12,7 @@ class WeChatMarketController {
      * 订餐列表页
      * @return
      */
-    def index() {
+    def menuList() {
         List<ReleaseMenuDetail> releaseMenuDetailList = ReleaseMenuDetail.createCriteria().list() {
             releaseMenu {
                 between("releaseDate", dateService.formatTodayStartTime(new Date()), dateService.formatTodayEndTime(new Date()))
