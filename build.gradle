@@ -16,12 +16,12 @@ buildscript {
 version "0.1"
 group "dingdong"
 
-apply plugin:"eclipse"
-apply plugin:"idea"
-apply plugin:"war"
-apply plugin:"org.grails.grails-web"
-apply plugin:"org.grails.grails-gsp"
-apply plugin:"asset-pipeline"
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "war"
+apply plugin: "org.grails.grails-web"
+apply plugin: "org.grails.grails-gsp"
+apply plugin: "asset-pipeline"
 
 ext {
     grailsVersion = project.grailsVersion
@@ -58,7 +58,8 @@ dependencies {
     console "org.grails:grails-console"
     profile "org.grails.profiles:web:3.1.7"
     runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.8.2"
-    //runtime "com.h2database:h2"
+    //测试环境驱动
+    runtime "com.h2database:h2"
     //mysql驱动
     runtime 'mysql:mysql-connector-java:5.1.39'
     testCompile "org.grails:grails-plugin-testing"
