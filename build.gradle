@@ -41,6 +41,8 @@ dependencyManagement {
 }
 
 dependencies {
+    //定时任务
+    compile 'org.grails.plugins:quartz:2.0.9'
     //http插件
     compile "com.budjb:http-requests-jersey1:1.0.1"
     compile "org.springframework.boot:spring-boot-starter-logging"

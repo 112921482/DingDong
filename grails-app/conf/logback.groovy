@@ -8,7 +8,7 @@ appender('STDOUT', ConsoleAppender) {
         pattern = "%level %logger - %msg%n"
     }
 }
-root(ERROR, ['STDOUT'])
+root(INFO, ['STDOUT'])
 
 // 日志输出控制
 // 日志路径

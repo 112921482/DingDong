@@ -101,25 +101,24 @@ class WeChatService {
      * 获取微信access_token
      * @return
      */
-    @Cacheable(value = "WeChatToken", key = "1000", condition = "#getTime > 0")
+    @Cacheable(value = "WeChatToken")
     Map getWeChatToken() {
         def promise = task {
             log.info((new Date()).toString() + "-从微信请求token")
+            Map dataMap = new HashMap()
             1..3.each {
                 def client = new JerseyHttpClientFactory().createHttpClient()
                 def request = new HttpRequest()
                         .setUri("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${grailsApplication.config.weixin?.appId}&secret=${grailsApplication.config.weixin?.appSecret}")
                         .setAccept("application/json")
                 def response = client.get(request)
-                def dataMap = response.getEntity(Map)
-                if (dataMap.get("errcode")) {
-                    dataMap.put("getTime", 0)
-                } else {
-                    dataMap.put("getTime", new Date().getTime())
+                dataMap = response.getEntity(Map)
+                if (!dataMap.get("errcode")) {
                     return false
                 }
                 return dataMap
             }
+            return dataMap
         }
         Map result = (Map) promise.get()
         return result
@@ -129,25 +128,23 @@ class WeChatService {
      * 更新微信access_token
      * @return
      */
-    @CachePut(value = "WeChatToken", key = "1000")
+    @CachePut(value = "WeChatToken")
     Map updateWeChatToken() {
         def promise = task {
             log.info((new Date()).toString() + "-从微信更新token")
+            Map dataMap = new HashMap()
             1..3.each {
                 def client = new JerseyHttpClientFactory().createHttpClient()
                 def request = new HttpRequest()
                         .setUri("https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${grailsApplication.config.weixin?.appId}&secret=${grailsApplication.config.weixin?.appSecret}")
                         .setAccept('application/json')
                 def response = client.get(request)
-                def dataMap = response.getEntity(Map)
-                if (dataMap.get("errcode")) {
-                    dataMap.put("getTime", 0)
-                } else {
-                    dataMap.put("getTime", new Date().getTime())
+                dataMap = response.getEntity(Map)
+                if (!dataMap.get("errcode")) {
                     return false
                 }
-                return dataMap
             }
+            return dataMap
         }
         Map result = (Map) promise.get()
         return result
