@@ -116,7 +116,6 @@ class WeChatService {
                 if (!dataMap.get("errcode")) {
                     return false
                 }
-                return dataMap
             }
             return dataMap
         }
