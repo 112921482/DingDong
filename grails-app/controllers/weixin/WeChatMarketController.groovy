@@ -8,6 +8,8 @@ class WeChatMarketController {
 
     def dateService
 
+    static defaultAction = "menuList"
+
     /**
      * 订餐列表页
      * @return
@@ -20,6 +22,7 @@ class WeChatMarketController {
             eq("enable", true)
             order("id", "desc")
         }
+        println(session.openid)
         [releaseMenuDetailList: releaseMenuDetailList]
     }
 }

@@ -12,7 +12,8 @@ class WeChatMarketInterceptor {
             def redirectUrl = request.getRequestURL().toString()
             requestUrl = requestUrl.replace("APPID", grailsApplication.config.weixin.appId.toString())
             requestUrl = requestUrl.replace("REDIRECT_URI", redirectUrl)
-            requestUrl = requestUrl.replace("SCOPE", "snsapi_userinfo")
+            //静默授权
+            requestUrl = requestUrl.replace("SCOPE", "snsapi_base")
             redirect(url: requestUrl)
             false
         } else {

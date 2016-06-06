@@ -6,8 +6,7 @@ import dingdong.customer.WeChatUser
 import grails.plugin.cache.CachePut
 import grails.plugin.cache.Cacheable
 import grails.transaction.Transactional
-import groovy.json.internal.LazyMap
-import org.springframework.web.context.request.RequestContextHolder
+import org.grails.web.util.WebUtils
 
 import static grails.async.Promises.task
 
@@ -17,11 +16,13 @@ class WeChatService {
     def grailsApplication
 
     /**
-     * 根据授权code，获取查询用户信息使用的access_token
+     * 获取用户信息
+     * @param code
+     * @return
      */
-    def getUserInfoAccessToken(String code) {
+    def getUserInfo(String code) {
         def promise = task {
-            Map dataMap = new LazyMap()
+            Map dataMap = new HashMap()
             //循环3次
             1..3.each {
                 log.info((new Date()).toString() + "-根据授权code从微信请求token以获取用户信息")
@@ -31,70 +32,16 @@ class WeChatService {
                         .setAccept("application/json")
                 def response = client.get(request)
                 dataMap = response.getEntity(Map)
-                if (dataMap.get("errcode")) {
-                    dataMap.put("getTime", 0)
-                } else {
-                    dataMap.put("getTime", new Date().getTime())
-                    //返回结果跳出循环
+                if (!dataMap.get("errcode")) {
                     return false
                 }
             }
             dataMap
         }
         def result = promise.get()
-        return result
-    }
-
-    /**
-     * 获取用户信息
-     * @param code
-     * @return
-     */
-    def getUserInfo(String code) {
-        Map<String, String> dataMap = getUserInfoAccessToken(code)
-        def openId = dataMap.get("openid")
-        def accessToken = dataMap.get("access_token")
-
-        WeChatUser weChatUser = WeChatUser.findByOpenId(openId)
-        if (!weChatUser) {
-            weChatUser = new WeChatUser()
-            weChatUser.setOpenId(openId)
-        }
-        weChatUser.setAccessToken(accessToken)
-        weChatUser.setRefreshToken(dataMap.get("refresh_token"))
-        weChatUser.setUnionid(dataMap.get("unionid"))
-        weChatUser.setGetTime(new Date().getTime())
-        weChatUser.save()
-
-        def promise = task {
-            Map userInfoMap = new LazyMap()
-            //循环3次
-            1..3.each {
-                log.info((new Date()).toString() + "-根据授权accessToken(${accessToken})从微信拉取用户(${openId})信息")
-                def client = new JerseyHttpClientFactory().createHttpClient()
-                def request = new HttpRequest()
-                        .setUri("https://api.weixin.qq.com/sns/userinfo?access_token=${accessToken}&openid=${openId}&lang=zh_CN")
-                        .setAccept("application/json")
-                def response = client.get(request)
-                userInfoMap = response.getEntity(Map)
-                if (!userInfoMap.get("errcode")) {
-                    return false
-                }
-            }
-            userInfoMap
-        }
-        def result = promise.get()
-
-        weChatUser.setCountry(result.get("country").toString())
-        weChatUser.setCity(result.get("city").toString())
-        weChatUser.setNickname(result.get("nickname").toString())
-        weChatUser.setHeadimgurl(result.get("headimgurl").toString())
-        weChatUser.setSex(Integer.parseInt(result.get("sex").toString()))
-
-        def session = RequestContextHolder.currentRequestAttributes().getSession()
-        session.openId = openId
-
-        return result
+        def webUtils = WebUtils.retrieveGrailsWebRequest()
+        def session = webUtils.getSession()
+        session.openid = result.get("openid")
     }
 
     /**

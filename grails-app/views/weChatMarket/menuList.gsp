@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-    <title>WeUI</title>
+    <title>山海经</title>
     <asset:stylesheet src="wechat/weui.min.css"/>
     <asset:stylesheet src="wechat/example.css"/>
     <asset:stylesheet src="wechat/menu_list_view.css"/>
