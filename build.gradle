@@ -41,7 +41,8 @@ dependencyManagement {
 }
 
 dependencies {
-    compile "com.budjb:http-requests-jersey1:1.0.0"
+    //http插件
+    compile "com.budjb:http-requests-jersey1:1.0.1"
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"
