@@ -33,7 +33,10 @@
         <h3>A.山海經——美食外卖</h3>
 
         <p>世间万物，唯有美食与爱不可辜负</p>
-
+        %{--错误信息--}%
+        <g:if test="${flash}">
+            <p style="color: red">${flash.message}</p>
+        </g:if>
         <form class="m-t" role="form" action="${postUrl ?: '/login/authenticate'}" method="POST" id="loginForm"
               autocomplete="off">
             <div class="form-group">
