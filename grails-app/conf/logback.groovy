@@ -8,7 +8,7 @@ appender('STDOUT', ConsoleAppender) {
         pattern = "%level %logger - %msg%n"
     }
 }
-root(INFO, ['STDOUT'])
+root(ERROR, ['STDOUT'])
 
 // 日志输出控制
 // 日志路径
@@ -18,11 +18,11 @@ def projectName = "dingdong"
 // 日志日期
 def byDay = timestamp("yyyyMMdd")
 
-appender("STDOUT", FileAppender) {
+appender("FULL_STACKTRACE", FileAppender) {
     file = "${targetDir}/${projectName}_${byDay}.log"
     append = true
     encoder(PatternLayoutEncoder) {
         pattern = "%level %logger - %msg%n"
     }
 }
-root(INFO, ['STDOUT'])
+logger("StackTrace", ERROR, ['FULL_STACKTRACE'], false)

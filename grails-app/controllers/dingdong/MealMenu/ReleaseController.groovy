@@ -10,11 +10,13 @@ class ReleaseController {
     def dateService
     def releaseService
 
+    static defaultAction = "menuList"
+
     /**
      * 首页
      * @return
      */
-    def index() {
+    def menuList() {
         List<ReleaseMenu> releaseMenuList = ReleaseMenu.createCriteria().list() {
             if (params.type) {
                 eq("type", params.short("type"))

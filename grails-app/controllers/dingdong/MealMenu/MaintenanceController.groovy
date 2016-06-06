@@ -10,11 +10,13 @@ class MaintenanceController {
     def uploadService
     def maintenanceService
 
+    static defaultAction = "menuGrid"
+
     /**
      * 菜单列表页
      * @return
      */
-    def index() {
+    def menuGrid() {
         List<MealMenu> mealMenuList = MealMenu.findAll()
         [mealMenuList: mealMenuList]
     }
@@ -97,6 +99,6 @@ class MaintenanceController {
             flash.type = "error"
             flash.message = "发布失败！"
         }
-        redirect(action: "index")
+        redirect(action: "menuGrid")
     }
 }
