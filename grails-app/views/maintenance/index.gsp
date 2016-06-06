@@ -108,7 +108,7 @@
                                         menu_id="${mealMenu.getId()}"
                                         menu_name="${mealMenu.getName()}"
                                         menu_price="${mealMenu.getPrice()}"
-                                        menu_pic="${mealMenu.getMealPics().size() > 0 ? grailsApplication.config.picShowPath + "/images/" + mealMenu.getMealPics().getAt(0).getPicUrl() : ''}">
+                                        menu_pic="${mealMenu.getMealPics().size() > 0 ? grailsApplication.config.picShowPath + mealMenu.getMealPics().getAt(0).getPicUrl() : ''}">
                                     <i class="fa fa-paste"></i>
                                     <span class="bold">编辑</span>
                                 </button>
