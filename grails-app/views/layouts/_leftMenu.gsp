@@ -17,7 +17,7 @@
                     <li class="${controllerName.equals("maintenance") && actionName.equals("menuGrid") ? 'active' : ''}">
                         <g:link controller="maintenance">维护菜单</g:link>
                     </li>
-                    <li class="${controllerName.equals("release") && actionName.equals("index") ? 'active' : ''}">
+                    <li class="${controllerName.equals("release") && actionName.equals("menuList") ? 'active' : ''}">
                         <g:link controller="release">已发布菜单</g:link>
                     </li>
                 </ul>

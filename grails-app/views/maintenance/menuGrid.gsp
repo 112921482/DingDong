@@ -57,7 +57,7 @@
             <div class="col-lg-12">
                 <div class="alert alert-success alert-dismissable">
                     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-                    ${flash.message.toString()}<g:link controller='release' action='index'
+                    ${flash.message.toString()}<g:link controller='release' action='menuList'
                                                        class='alert-link'>《已发布菜单》</g:link>
                 </div>
             </div>
@@ -102,7 +102,7 @@
                             <a href="javascript:void(0);" class="product-name">${mealMenu.getName()}</a>
 
                             <div class="m-t text-left">
-                                <label >
+                                <label>
                                     <div class="icheckbox_square-green" style="position: relative;">
                                         <input type="checkbox" class="i-checks" style="position: absolute; opacity: 0;"
                                                menu_id="${mealMenu.getId()}">
@@ -113,7 +113,8 @@
                             </div>
 
                             <div class="m-t text-right">
-                                <button class="btn btn-xs btn-outline btn-info updateBtn" type="button" data-toggle="modal"
+                                <button class="btn btn-xs btn-outline btn-info updateBtn" type="button"
+                                        data-toggle="modal"
                                         data-target="#modal-edit-form"
                                         menu_id="${mealMenu.getId()}"
                                         menu_name="${mealMenu.getName()}"
